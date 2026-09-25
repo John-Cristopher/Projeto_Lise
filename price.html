@@ -1,11 +1,341 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lise - Planos e Preços</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="icon" href="./img/android-chrome-512x512.png" type="image/png">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#4A5D4E',
+                            sage: '#8DAA91',
+                            gold: '#C5A467',
+                            cream: '#F9F7F2',
+                            slate: '#465A65',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-    
+
+<body
+    class="bg-brand-cream text-brand-slate font-sans antialiased selection:bg-brand-sage/30 selection:text-brand-dark">
+
+    <!-- HEADER -->
+    <header class="fixed w-full top-0 z-50 py-4 px-4 md:px-6">
+        <nav
+            class="container mx-auto flex justify-between items-center bg-brand-dark/90 backdrop-blur-md py-3 px-6 rounded-2xl shadow-xl border border-white/10">
+            <a href="index.html"
+                class="text-2xl font-serif font-bold text-white hover:text-brand-gold transition-colors">
+                Lise<span class="text-brand-gold">.</span>
+            </a>
+            <a href="index.html"
+                class="text-brand-cream hover:text-brand-gold text-sm font-semibold flex items-center gap-2 transition-colors">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar para o Início
+            </a>
+        </nav>
+    </header>
+
+    <main class="pt-32 pb-20 px-6">
+        <div class="container mx-auto max-w-7xl">
+
+            <!-- Título da Página -->
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span
+                    class="inline-block bg-brand-sage/10 text-brand-dark px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                    Tabela Comparativa de Planos
+                </span>
+                <h1 class="text-4xl md:text-5xl font-serif font-bold text-brand-dark">
+                    Encontre o plano ideal para a sua <span class="italic text-brand-gold">jornada biológica</span>
+                </h1>
+                <p class="text-brand-slate/80 text-base">
+                    Compare os recursos disponíveis para estudantes, professores e instituições de ensino.
+                </p>
+            </div>
+
+            <!-- CARDS DE PREÇOS (DESTAQUE) -->
+            <div class="grid md:grid-cols-4 gap-6 mb-20">
+
+                <!-- Aluno Free -->
+                <div
+                    class="bg-white rounded-3xl p-6 border border-brand-slate/10 shadow-lg flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-brand-slate/50 uppercase tracking-wider">Para
+                            Estudantes</span>
+                        <h3 class="text-2xl font-serif font-bold text-brand-dark mt-1">Aluno Free</h3>
+                        <div class="my-6">
+                            <span class="text-4xl font-bold text-brand-dark">R$ 0</span>
+                            <span class="text-xs text-brand-slate/60 block mt-1">Gratuito para sempre</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-brand-slate/80 border-t border-slate-100 pt-4">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Acesso a Jogos e Flashcards</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Trilhas de aprendizado básicas</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Participar de até <strong>3 turmas</strong></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="index.html"
+                        class="mt-8 block text-center bg-brand-dark text-white py-3 rounded-xl font-bold text-sm hover:bg-brand-slate transition-all">Começar
+                        Grátis</a>
+                </div>
+
+                <!-- Professor Free -->
+                <div
+                    class="bg-white rounded-3xl p-6 border border-brand-slate/10 shadow-lg flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-brand-slate/50 uppercase tracking-wider">Para
+                            Educadores</span>
+                        <h3 class="text-2xl font-serif font-bold text-brand-dark mt-1">Professor Free</h3>
+                        <div class="my-6">
+                            <span class="text-4xl font-bold text-brand-dark">R$ 0</span>
+                            <span class="text-xs text-brand-slate/60 block mt-1">Até 20 alunos</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-brand-slate/80 border-t border-slate-100 pt-4">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Criar <strong>1 turma</strong> (20 alunos)</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Relatórios básicos de desempenho</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Criação limitada de conteúdos</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="index.html"
+                        class="mt-8 block text-center bg-brand-dark text-white py-3 rounded-xl font-bold text-sm hover:bg-brand-slate transition-all">Criar
+                        Turma Grátis</a>
+                </div>
+
+                <!-- Professor Pro (Destaque) -->
+                <div
+                    class="bg-brand-dark text-white rounded-3xl p-6 border-2 border-brand-gold shadow-xl flex flex-col justify-between relative">
+                    <div
+                        class="absolute -top-3 right-6 bg-brand-gold text-brand-dark text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        Mais Popular
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-gold uppercase tracking-wider">Professores
+                            Avançados</span>
+                        <h3 class="text-2xl font-serif font-bold text-white mt-1">Professor Pro</h3>
+                        <div class="my-6">
+                            <span class="text-4xl font-bold text-brand-gold">R$ 19,90</span>
+                            <span class="text-xs text-brand-cream/60 block mt-1">/ mês (Até 400 alunos)</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-brand-cream/90 border-t border-white/10 pt-4">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Criar até <strong>10 turmas</strong></span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Relatórios avançados e exportação</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Criação ilimitada de termos</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Suporte prioritário</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#"
+                        class="mt-8 block text-center bg-brand-gold text-brand-dark py-3 rounded-xl font-bold text-sm hover:bg-white transition-all shadow-md">Assinar
+                        Pro</a>
+                </div>
+
+                <!-- Escola -->
+                <div
+                    class="bg-white rounded-3xl p-6 border border-brand-slate/10 shadow-lg flex flex-col justify-between">
+                    <div>
+                        <span
+                            class="text-xs font-bold text-brand-slate/50 uppercase tracking-wider">Institucional</span>
+                        <h3 class="text-2xl font-serif font-bold text-brand-dark mt-1">Escola</h3>
+                        <div class="my-6">
+                            <span class="text-2xl font-bold text-brand-dark">Sob Consulta</span>
+                            <span class="text-xs text-brand-slate/60 block mt-1">A partir de R$ 149/mês</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-brand-slate/80 border-t border-slate-100 pt-4">
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Turmas e alunos <strong>ilimitados (∞)</strong></span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Dashboard escolar integrado</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Personalização institucional</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-brand-gold"></i>
+                                <span>Suporte prioritário dedicado</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#"
+                        class="mt-8 block text-center bg-brand-dark text-white py-3 rounded-xl font-bold text-sm hover:bg-brand-slate transition-all">Fale
+                        Conosco</a>
+                </div>
+
+            </div>
+
+            <!-- TABELA DETALHADA COMPLETA -->
+            <div class="bg-white rounded-3xl shadow-xl border border-brand-slate/10 overflow-hidden p-6 md:p-10">
+                <h3 class="text-2xl font-serif font-bold text-brand-dark mb-6">Comparativo Completo de Recursos</h3>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-brand-slate/10 text-brand-slate text-sm">
+                                <th class="py-4 px-4 font-bold">Recurso</th>
+                                <th class="py-4 px-4 font-bold text-center">Aluno Free</th>
+                                <th class="py-4 px-4 font-bold text-center">Professor Free</th>
+                                <th class="py-4 px-4 font-bold text-center text-brand-gold">Professor Pro</th>
+                                <th class="py-4 px-4 font-bold text-center">Escola</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-sm text-brand-slate/80">
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-brand-dark">Conta</td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-brand-dark">Jogos & Flashcards</td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-brand-dark">Trilhas de Aprendizado</td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-brand-dark">Participar de turmas</td>
+                                <td class="py-3 px-4 text-center font-bold text-brand-dark">3</td>
+                                <td class="py-3 px-4 text-center">—</td>
+                                <td class="py-3 px-4 text-center">—</td>
+                                <td class="py-3 px-4 text-center">—</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-brand-dark">Criar turmas</td>
+                                <td class="py-3 px-4 text-center">—</td>
+                                <td class="py-3 px-4 text-center font-bold">1</td>
+                                <td class="py-3 px-4 text-center font-bold">10</td>
+                                <td class="py-3 px-4 text-center font-bold">∞</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-brand-dark">Limite de Alunos</td>
+                                <td class="py-3 px-4 text-center">—</td>
+                                <td class="py-3 px-4 text-center">20</td>
+                                <td class="py-3 px-4 text-center">400</td>
+                                <td class="py-3 px-4 text-center font-bold">Conforme plano</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-brand-dark">Criar conteúdos e termos</td>
+                                <td class="py-3 px-4 text-center">—</td>
+                                <td class="py-3 px-4 text-center text-xs">Limitado / Não</td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="check"
+                                        class="w-4 h-4 text-brand-gold inline-block"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-brand-dark">Relatórios (Básicos / Avançados)</td>
+                                <td class="py-3 px-4 text-center">—</td>
+                                <td class="py-3 px-4 text-center">Apenas Básicos</td>
+                                <td class="py-3 px-4 text-center"><span class="inline-flex items-center gap-1"><i
+                                            data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Avançados</span>
+                                </td>
+                                <td class="py-3 px-4 text-center"><span class="inline-flex items-center gap-1"><i
+                                            data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Avançados</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-brand-dark">Dashboard Escolar & Exportação</td>
+                                <td class="py-3 px-4 text-center">—</td>
+                                <td class="py-3 px-4 text-center"><i data-lucide="x"
+                                        class="w-4 h-4 text-brand-slate/50 inline-block"></i></td>
+                                <td class="py-3 px-4 text-center"><span class="inline-flex items-center gap-1"><i
+                                            data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Exportação</span>
+                                </td>
+                                <td class="py-3 px-4 text-center"><span class="inline-flex items-center gap-1"><i
+                                            data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Completo</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-brand-dark">Preço do Plano</td>
+                                <td class="py-3 px-4 text-center font-bold text-brand-dark">R$ 0</td>
+                                <td class="py-3 px-4 text-center font-bold text-brand-dark">R$ 0</td>
+                                <td class="py-3 px-4 text-center font-bold text-brand-gold">R$ 19,90/mês</td>
+                                <td class="py-3 px-4 text-center font-bold text-brand-dark">A partir de R$ 149/mês</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark text-brand-cream/60 py-10 text-center text-sm">
+        <p>&copy; 2026 Lise. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
+
 </html>
