@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lise</title>
-    <!-- Tailwind CSS -->
+    <title>Lise - Decodificador Etimológico Biológico</title>
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="icon" href="/img/android-chrome-512x512.png" type="image/png">
+    <link rel="icon" href="./img/android-chrome-512x512.png" type="image/png">
 
     <script>
         tailwind.config = {
@@ -36,7 +37,7 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Estilos estruturais adicionais para o Flashcard Interativo 3D */
+        /* Estilos estruturais para o Flashcard Interativo 3D */
         .perspective-1000 {
             perspective: 1000px;
         }
@@ -60,53 +61,69 @@
     class="bg-brand-cream text-brand-slate font-sans antialiased selection:bg-brand-sage/30 selection:text-brand-dark">
 
     <!-- HEADER / NAVEGAÇÃO -->
-    <header id="cabecalho-principal" class="fixed w-full top-0 z-50 py-4 px-6 rounded-xl">
+    <header id="cabecalho-principal" class="fixed w-full top-0 z-50 py-4 px-4 md:px-6">
         <nav id="barra-nav"
-            class="container mx-auto flex justify-between items-center bg-white/55 backdrop-blur-md py-6 px-8 rounded-xl transition-all duration-300">
-            <div class="text-3xl font-bold brand-text">Lise</div>
+            class="container mx-auto flex justify-between items-center bg-brand-dark/80 backdrop-blur-md py-3 px-6 rounded-2xl shadow-2xl border border-white/10 transition-all duration-300">
 
-            <!-- Menu Desktop -->
-            <ul class="hidden md:flex space-x-8 font-medium">
-                <li><a href="#inicio" class="hover:text-brand-gold transition-colors duration-200">Início</a></li>
-                <li><a href="#problema" class="hover:text-brand-gold transition-colors duration-200">O Problema</a></li>
-                <li><a href="#metodo" class="hover:text-brand-gold transition-colors duration-200">Decodificador</a>
+            <!-- Logo -->
+            <a href="#inicio"
+                class="text-2xl md:text-3xl font-serif font-bold text-white hover:text-brand-gold transition-colors">
+                Lise<span class="text-brand-gold">.</span>
+            </a>
+
+            <!-- Menu Desktop (Links Principais) -->
+            <ul class="hidden md:flex items-center space-x-7 font-medium text-sm text-brand-cream/80">
+                <li><a href="#inicio" class="hover:text-brand-gold transition-colors">Início</a></li>
+                <li><a href="#problema" class="hover:text-brand-gold transition-colors">Método</a></li>
+                <li><a href="#planos" class="hover:text-brand-gold transition-colors">Para Quem É</a></li>
+                <li><a href="#recursos" class="hover:text-brand-gold transition-colors">Recursos</a></li>
+                <li><a href="#faq" class="hover:text-brand-gold transition-colors">Dúvidas</a></li>
+                <li>
+                    <!-- Link Externo de Preços em Destaque Visual Discreto -->
+                    <a href="price.html" class="text-brand-gold font-semibold hover:underline flex items-center gap-1">
+                        <span>Planos</span>
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                    </a>
                 </li>
-                <li><a href="#recursos" class="hover:text-brand-gold transition-colors duration-200">Funcionalidades</a>
-                </li>
-                <li><a href="#desenvolvedores" class="hover:text-brand-gold transition-colors duration-200">Equipe</a>
-                </li>
-                <li><a href="#faq" class="hover:text-brand-gold transition-colors duration-200">Dúvidas</a></li>
             </ul>
 
+            <!-- Botão CTA Principal (Desktop) -->
             <div class="hidden md:block">
-                <a href="#metodo"
-                    class="bg-brand-dark text-brand-cream px-5 py-3 rounded-xl font-medium hover:bg-brand-slate transition shadow-md shadow-brand-dark/10">Experimentar
-                    Lise</a>
+                <a href="price.html"
+                    class="bg-brand-cream text-brand-dark px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-brand-gold transition-all duration-200 shadow-md shadow-brand-gold/10">
+                    Ver Preços
+                </a>
             </div>
 
             <!-- Botão Mobile -->
-            <button id="botao-menu" class="md:hidden focus:outline-none text-brand-dark">
+            <button id="botao-menu" aria-label="Abrir Menu" class="md:hidden focus:outline-none text-white p-2">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </nav>
 
-        <!-- Menu Mobile -->
+        <!-- Menu Mobile Refatorado -->
         <div id="menu-movel"
-            class="hidden md:hidden bg-white mt-2 rounded-2xl shadow-xl border border-brand-slate/10 px-6 py-4">
-            <a href="#inicio" class="block py-2.5 border-b border-brand-cream font-medium">Início</a>
-            <a href="#problema" class="block py-2.5 border-b border-brand-cream font-medium">O Problema</a>
-            <a href="#metodo" class="block py-2.5 border-b border-brand-cream font-medium text-brand-gold">Decodificador
-                Interativo</a>
-            <a href="#recursos" class="block py-2.5 border-b border-brand-cream font-medium">Funcionalidades</a>
-            <a href="#desenvolvedores" class="block py-2.5 font-medium">Equipe</a>
+            class="hidden md:hidden bg-brand-dark/95 backdrop-blur-xl mt-3 rounded-2xl shadow-2xl border border-white/10 p-6 flex-col gap-4 text-brand-cream">
+            <a href="#inicio" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Início</a>
+            <a href="#problema" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Método Lise</a>
+            <a href="#planos" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Para Quem É</a>
+            <a href="#recursos"
+                class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Funcionalidades</a>
+            <a href="#faq" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Dúvidas</a>
+
+            <!-- CTA Mobile para price.html -->
+            <a href="price.html"
+                class="mt-2 w-full text-center bg-brand-gold text-brand-dark py-3 rounded-xl font-bold text-sm hover:bg-white transition-colors">
+                Conhecer Planos
+            </a>
         </div>
     </header>
 
-    <main class="overflow-x-hidden">
+    <main class="overflow-x-hidden pt-12">
 
-        <!-- SEÇÃO HERO (TELA CHEIA COM FLASHCARD INTERATIVO) -->
+        <!-- SEÇÃO HERO -->
         <section id="inicio"
-            class="min-h-screen flex items-center pt-24 pb-12 px-6 bg-gradient-to-b from-brand-cream via-brand-cream to-white">
+            class="min-h-screen flex items-center pt-20 pb-12 px-6 bg-gradient-to-b from-brand-cream via-brand-cream to-white">
             <div class="container mx-auto max-w-6xl w-full">
                 <div class="grid md:grid-cols-12 gap-12 items-center">
                     <div class="md:col-span-7 space-y-8">
@@ -139,12 +156,12 @@
 
                     <div class="md:col-span-5 relative">
                         <!-- Flashcard Interativo do Lise -->
-                        <div class="w-full max-w-sm mx-auto perspective-1000 h-[380px] cursor-pointer group animate-fade-in"
-                            onclick="this.querySelector('.preserve-3d').classList.toggle('rotate-y-180')">
+                        <div id="flashcard-card"
+                            class="w-full max-w-sm mx-auto perspective-1000 h-[380px] cursor-pointer group">
                             <div
-                                class="preserve-3d relative w-full h-full duration-700 transition-transform shadow-2xl rounded-3xl border border-brand-slate/5">
+                                class="card-inner preserve-3d relative w-full h-full duration-700 transition-transform shadow-2xl rounded-3xl border border-brand-slate/5">
 
-                                <!-- LADO DA FRENTE (Frente do Flashcard) -->
+                                <!-- LADO DA FRENTE -->
                                 <div
                                     class="absolute inset-0 w-full h-full backface-hidden bg-white rounded-3xl p-8 flex flex-col justify-between">
                                     <div class="flex items-center justify-between">
@@ -177,7 +194,7 @@
                                     </div>
                                 </div>
 
-                                <!-- LADO DE TRÁS (Verso do Flashcard) -->
+                                <!-- LADO DE TRÁS -->
                                 <div
                                     class="absolute inset-0 w-full h-full backface-hidden bg-brand-dark text-brand-cream rounded-3xl p-8 flex flex-col justify-between rotate-y-180">
                                     <div class="flex items-center justify-between">
@@ -204,10 +221,9 @@
                                                     divisão</span>.
                                             </p>
                                             <p class="text-xs text-brand-cream/70 leading-relaxed font-sans">
-                                                É o sufixo por trás de <em>Glicólise</em> (quebra da glicose) e
-                                                <em>Citólise</em> (rompimento celular). Nosso software recebeu esse nome
-                                                porque nossa missão é justamente "quebrar" termos complexos para
-                                                facilitar a sua aprendizagem.
+                                                É o sufixo por trás de <em>Glicólise</em> e <em>Citólise</em>. Nosso
+                                                software recebeu esse nome porque nossa missão é justamente "quebrar"
+                                                termos complexos.
                                             </p>
                                         </div>
                                     </div>
@@ -234,7 +250,7 @@
             </div>
         </section>
 
-        <!-- SEÇÃO: O PROBLEMA VS CIÊNCIA (TELA CHEIA) -->
+        <!-- SEÇÃO: O PROBLEMA VS CIÊNCIA -->
         <section id="problema"
             class="min-h-screen flex items-center py-20 bg-brand-dark text-brand-cream relative overflow-hidden">
             <div class="absolute right-0 top-0 opacity-10 pointer-events-none">
@@ -256,7 +272,6 @@
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <!-- O Estudo de Caso -->
                     <div class="space-y-6 bg-white/5 p-8 rounded-3xl border border-white/10">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 rounded-full bg-brand-gold/10 flex items-center justify-center">
@@ -269,9 +284,9 @@
                         </div>
                         <p class="text-brand-cream/80 text-sm leading-relaxed">
                             De acordo com a pesquisa desenvolvida pela Universidade Federal do Rio Grande do Sul, a
-                            divisão de termos biológicos complexos em seus componentes morfológicos fundamentais
-                            (prefixos e sufixos) reduz drasticamente a estranheza das palavras complexas, permitindo que
-                            os estudantes deduzam significados de forma <strong>autônoma</strong>.
+                            divisão de termos biológicos complexos em seus componentes morfológicos fundamentais reduz
+                            drasticamente a estranheza das palavras, permitindo que os estudantes deduzam significados
+                            de forma <strong>autônoma</strong>.
                         </p>
                         <div
                             class="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-brand-sage">
@@ -281,15 +296,12 @@
                         </div>
                     </div>
 
-                    <!-- Solução -->
                     <div class="space-y-6">
                         <h3 class="text-2xl md:text-3xl font-serif font-bold text-brand-gold">A nossa solução: focar na
                             raiz estrutural das palavras</h3>
                         <p class="text-brand-cream/80 text-sm leading-relaxed">
                             Ao invés de tentar decorar centenas de conceitos inteiros isolados, o aluno no
-                            <strong>Lise</strong> aprende a reconhecer os blocos lógicos das palavras. Compreendendo
-                            apenas alguns prefixos e sufixos, ele adquire o poder de decodificar milhares de termos
-                            científicos intuitivamente.
+                            <strong>Lise</strong> aprende a reconhecer os blocos lógicos das palavras.
                         </p>
                         <div class="grid grid-cols-2 gap-4 pt-4">
                             <div class="p-4 bg-white/5 rounded-xl border border-white/5">
@@ -306,7 +318,7 @@
             </div>
         </section>
 
-        <!-- SEÇÃO: INTERATIVIDADE (O DECODIFICADOR - TELA CHEIA) -->
+        <!-- SEÇÃO: INTERATIVIDADE (O DECODIFICADOR) -->
         <section id="metodo" class="min-h-screen flex items-center py-20 bg-white relative">
             <div class="container mx-auto max-w-5xl px-6 w-full">
                 <div class="text-center max-w-2xl mx-auto mb-12">
@@ -316,11 +328,10 @@
                         biológicos você mesmo</h2>
                     <p class="text-brand-slate/80 text-sm">
                         Selecione um prefixo e um sufixo para desvendar a lógica etimológica por trás do termo
-                        biológico. Veja como o aprendizado se torna óbvio.
+                        biológico.
                     </p>
                 </div>
 
-                <!-- Painel Interativo de Combinação de Palavras -->
                 <div class="bg-brand-cream rounded-3xl p-8 border border-brand-slate/5 shadow-xl">
                     <div class="grid md:grid-cols-2 gap-8">
 
@@ -330,22 +341,22 @@
                                 <h4 class="text-xs uppercase text-brand-slate/60 font-bold mb-3 tracking-widest">1.
                                     Prefixo (Início)</h4>
                                 <div class="grid grid-cols-2 gap-3" id="prefix-buttons">
-                                    <button onclick="selectPrefix('glico', 'Açúcar / Doce')"
+                                    <button onclick="selectPrefix('glico', 'Açúcar / Doce', event)"
                                         class="prefix-btn p-4 rounded-xl text-left font-medium bg-white border border-slate-200 hover:border-brand-sage transition-all focus:outline-none flex flex-col">
                                         <span class="text-brand-dark font-bold text-lg">glico-</span>
                                         <span class="text-xs text-brand-slate/60">açúcar</span>
                                     </button>
-                                    <button onclick="selectPrefix('cito', 'Célula')"
+                                    <button onclick="selectPrefix('cito', 'Célula', event)"
                                         class="prefix-btn p-4 rounded-xl text-left font-medium bg-white border border-slate-200 hover:border-brand-sage transition-all focus:outline-none flex flex-col">
                                         <span class="text-brand-dark font-bold text-lg">cito-</span>
                                         <span class="text-xs text-brand-slate/60">célula</span>
                                     </button>
-                                    <button onclick="selectPrefix('hemato', 'Sangue')"
+                                    <button onclick="selectPrefix('hemato', 'Sangue', event)"
                                         class="prefix-btn p-4 rounded-xl text-left font-medium bg-white border border-slate-200 hover:border-brand-sage transition-all focus:outline-none flex flex-col">
                                         <span class="text-brand-dark font-bold text-lg">hemato-</span>
                                         <span class="text-xs text-brand-slate/60">sangue</span>
                                     </button>
-                                    <button onclick="selectPrefix('lipo', 'Gordura / Lipídio')"
+                                    <button onclick="selectPrefix('lipo', 'Gordura / Lipídio', event)"
                                         class="prefix-btn p-4 rounded-xl text-left font-medium bg-white border border-slate-200 hover:border-brand-sage transition-all focus:outline-none flex flex-col">
                                         <span class="text-brand-dark font-bold text-lg">lipo-</span>
                                         <span class="text-xs text-brand-slate/60">gordura</span>
@@ -357,17 +368,17 @@
                                 <h4 class="text-xs uppercase text-brand-slate/60 font-bold mb-3 tracking-widest">2.
                                     Sufixo (Fim)</h4>
                                 <div class="grid grid-cols-2 gap-3" id="suffix-buttons">
-                                    <button onclick="selectSuffix('lise', 'Quebra / Decomposição')"
+                                    <button onclick="selectSuffix('lise', 'Quebra / Decomposição', event)"
                                         class="suffix-btn p-4 rounded-xl text-left font-medium bg-white border border-slate-200 hover:border-brand-sage transition-all focus:outline-none flex flex-col">
                                         <span class="text-brand-dark font-bold text-lg">-lise</span>
                                         <span class="text-xs text-brand-slate/60">quebra</span>
                                     </button>
-                                    <button onclick="selectSuffix('logia', 'Estudo / Ciência')"
+                                    <button onclick="selectSuffix('logia', 'Estudo / Ciência', event)"
                                         class="suffix-btn p-4 rounded-xl text-left font-medium bg-white border border-slate-200 hover:border-brand-sage transition-all focus:outline-none flex flex-col">
                                         <span class="text-brand-dark font-bold text-lg">-logia</span>
                                         <span class="text-xs text-brand-slate/60">estudo de</span>
                                     </button>
-                                    <button onclick="selectSuffix('genese', 'Origem / Geração')"
+                                    <button onclick="selectSuffix('genese', 'Origem / Geração', event)"
                                         class="suffix-btn p-4 rounded-xl text-left font-medium bg-white border border-slate-200 hover:border-brand-sage transition-all focus:outline-none flex flex-col">
                                         <span class="text-brand-dark font-bold text-lg">-gênese</span>
                                         <span class="text-xs text-brand-slate/60">origem</span>
@@ -414,7 +425,7 @@
             </div>
         </section>
 
-        <!-- SEÇÃO: RECURSOS DO PRODUTO (STUDENT & TEACHER - TELA CHEIA) -->
+        <!-- SEÇÃO: RECURSOS -->
         <section id="recursos" class="min-h-screen flex items-center py-20 bg-brand-cream relative">
             <div class="container mx-auto max-w-6xl px-6 w-full">
                 <div class="text-center max-w-2xl mx-auto mb-20">
@@ -429,7 +440,6 @@
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-12">
-                    <!-- Painel do Estudante -->
                     <div class="space-y-6">
                         <div
                             class="w-12 h-12 rounded-xl bg-brand-dark text-brand-cream flex items-center justify-center shadow-md">
@@ -439,8 +449,7 @@
                         </h3>
                         <p class="text-brand-slate/80 text-sm leading-relaxed">
                             Acesse trilhas de aprendizado criadas de forma personalizada. Decodifique dezenas de termos
-                            através de mecânicas de flashcards, quizzes práticos e visualizadores inteligentes sem
-                            interromper o fluxo das aulas teóricas.
+                            através de mecânicas de flashcards e quizzes práticos.
                         </p>
                         <ul class="space-y-3 pt-2 text-sm">
                             <li class="flex items-start gap-3">
@@ -451,12 +460,11 @@
                             <li class="flex items-start gap-3">
                                 <i data-lucide="check" class="w-5 h-5 text-brand-gold flex-shrink-0 mt-0.5"></i>
                                 <span><strong>Flashcards inteligentes:</strong> Controle de repetição espaçada baseado
-                                    na sua dificuldade de fixação.</span>
+                                    na sua facilidade ou dificuldade de fixação.</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Painel do Professor -->
                     <div class="space-y-6">
                         <div
                             class="w-12 h-12 rounded-xl bg-brand-sage text-brand-cream flex items-center justify-center shadow-md">
@@ -465,9 +473,8 @@
                         <h3 class="text-2xl font-serif font-bold text-brand-dark">Para o Professor: Gestão e análise de
                             dados</h3>
                         <p class="text-brand-slate/80 text-sm leading-relaxed">
-                            Monitore o avanço analítico de suas turmas de forma otimizada. Identifique os radicais mais
-                            desafiadores e adapte o conteúdo programático sem esforço excessivo em revisões constantes
-                            de conceitos básicos de ciclos anteriores.
+                            Monitore o avanço analítico de suas turmas de forma otimizada e adapte o conteúdo
+                            programático sem esforço excessivo em revisões constantes.
                         </p>
                         <ul class="space-y-3 pt-2 text-sm">
                             <li class="flex items-start gap-3">
@@ -486,7 +493,7 @@
             </div>
         </section>
 
-        <!-- SEÇÃO: DESENVOLVEDORES (EQUIPE - TELA CHEIA) -->
+        <!-- SEÇÃO: DESENVOLVEDORES -->
         <section id="desenvolvedores" class="min-h-screen flex items-center py-20 bg-white">
             <div class="container mx-auto max-w-6xl px-6 w-full">
                 <div class="text-center max-w-2xl mx-auto mb-16">
@@ -499,7 +506,6 @@
                 </div>
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Desenvolvedor 1 -->
                     <div
                         class="group bg-brand-cream/50 rounded-2xl p-6 border border-brand-slate/5 text-center flex flex-col hover:shadow-xl transition-all duration-500 ease-in-out cursor-default">
                         <div
@@ -509,14 +515,11 @@
                         <h4 class="font-serif font-bold text-lg text-brand-dark">Lívia Domingues</h4>
                         <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1">Scrum Master e
                             Desenvolvedora</p>
-
                         <div
                             class="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 ease-in-out">
                             <div class="overflow-hidden">
-                                <p class="text-xs text-brand-slate/70 mt-4 leading-relaxed">
-                                    Breve descrição padrão das atividades, conquistas ou interesses acadêmicos deste
-                                    membro da equipe.
-                                </p>
+                                <p class="text-xs text-brand-slate/70 mt-4 leading-relaxed">Desenvolvimento e apoio à
+                                    gestão ágil do ecossistema Lise.</p>
                                 <div
                                     class="pt-4 mt-4 border-t border-slate-200 text-xs text-brand-slate/50 flex items-center justify-center gap-1">
                                     livia.matos.senai@gmail.com
@@ -534,14 +537,11 @@
                         <h4 class="font-serif font-bold text-lg text-brand-dark">Isabelly Ferreira</h4>
                         <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1">Tech Lead e
                             Desenvolvedora</p>
-
                         <div
                             class="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 ease-in-out">
                             <div class="overflow-hidden">
-                                <p class="text-xs text-brand-slate/70 mt-4 leading-relaxed">
-                                    Breve descrição padrão das atividades, conquistas ou interesses acadêmicos deste
-                                    membro da equipe.
-                                </p>
+                                <p class="text-xs text-brand-slate/70 mt-4 leading-relaxed">Arquitetura técnica do
+                                    projeto e liderança de desenvolvimento.</p>
                                 <div
                                     class="pt-4 mt-4 border-t border-slate-200 text-xs text-brand-slate/50 flex items-center justify-center gap-1">
                                     isabelly.ferreira.senai@gmail.com
@@ -559,14 +559,11 @@
                         <h4 class="font-serif font-bold text-lg text-brand-dark">João Pedro Stadler</h4>
                         <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1">Desenvolvedor
                             Back-End</p>
-
                         <div
                             class="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 ease-in-out">
                             <div class="overflow-hidden">
-                                <p class="text-xs text-brand-slate/70 mt-4 leading-relaxed">
-                                    Breve descrição padrão das atividades, conquistas ou interesses acadêmicos deste
-                                    membro da equipe.
-                                </p>
+                                <p class="text-xs text-brand-slate/70 mt-4 leading-relaxed">Construção de rotas, API e
+                                    integração da base de termos biológicos.</p>
                                 <div
                                     class="pt-4 mt-4 border-t border-slate-200 text-xs text-brand-slate/50 flex items-center justify-center gap-1">
                                     joãopedrostadlerroza.senai@gmail.com
@@ -584,14 +581,11 @@
                         <h4 class="font-serif font-bold text-lg text-brand-dark">John Cristopher</h4>
                         <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1">Desenvolvedor
                             Front-End</p>
-
                         <div
                             class="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 ease-in-out">
                             <div class="overflow-hidden">
-                                <p class="text-xs text-brand-slate/70 mt-4 leading-relaxed">
-                                    Breve descrição padrão das atividades, conquistas ou interesses acadêmicos deste
-                                    membro da equipe.
-                                </p>
+                                <p class="text-xs text-brand-slate/70 mt-4 leading-relaxed">Criação das interfaces,
+                                    componentes responsivos e experiência visual.</p>
                                 <div
                                     class="pt-4 mt-4 border-t border-slate-200 text-xs text-brand-slate/50 flex items-center justify-center gap-1">
                                     john.cristopher.senai@gmail.com
@@ -603,33 +597,207 @@
             </div>
         </section>
 
-        <!-- SEÇÃO: CTA (Chamada Para Ação - TELA CHEIA) -->
-        <section class="min-h-screen flex items-center py-20 bg-brand-cream">
-            <div class="container mx-auto px-6 max-w-4xl w-full">
-                <div
-                    class="bg-brand-dark rounded-3xl p-12 text-center text-brand-cream shadow-2xl relative overflow-hidden">
-                    <div class="relative z-10 space-y-6">
-                        <h2 class="text-3xl md:text-4xl font-serif font-bold">Pronto para transformar o ensino
-                            biológico?</h2>
-                        <p class="text-brand-cream/80 max-w-xl mx-auto text-sm leading-relaxed">
-                            O Lise está sendo desenvolvido com o intuito de simplificar a jornada de estudantes e
-                            docentes. Entre em contato para conhecer as pesquisas ou acompanhar os próximos testes da
-                            nossa versão beta.
-                        </p>
-                        <div class="pt-4">
-                            <a href="mailto:contato@exemplo.com"
-                                class="bg-white text-brand-dark px-10 py-4 rounded-xl font-bold text-sm hover:bg-brand-cream transition-all shadow-xl inline-flex items-center gap-2">
-                                <i data-lucide="mail" class="w-4 h-4"></i> Entrar em Contato
+        <!-- SEÇÃO: PRÉVIA PREÇOS -->
+        <section id="planos"
+            class="min-h-screen flex items-center py-20 bg-brand-dark text-brand-cream relative overflow-hidden">
+
+            <!-- Elementos Decorativos de Fundo -->
+            <div class="absolute -right-20 -top-20 opacity-10 pointer-events-none">
+                <svg class="w-[500px] h-[500px]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 6" />
+                    <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="1" />
+                </svg>
+            </div>
+            <div class="absolute -left-20 -bottom-20 opacity-5 pointer-events-none">
+                <div class="w-96 h-96 bg-brand-gold rounded-full blur-3xl"></div>
+            </div>
+
+            <div class="container mx-auto max-w-6xl px-6 w-full relative z-10">
+                <!-- Cabeçalho Principal -->
+                <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                    <span
+                        class="inline-block bg-brand-gold/10 text-brand-gold px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-brand-gold/20">
+                        Acesso & Investimento
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-serif font-bold text-white">
+                        Escolha a sua jornada no <span class="italic text-brand-gold">Lise</span>
+                    </h2>
+                    <p class="text-brand-cream/70 text-sm md:text-base leading-relaxed">
+                        Ambientes sob medida para quem quer aprender biologia sem 'decoreba' e para quem precisa
+                        gerenciar turmas com eficiência.
+                    </p>
+                </div>
+
+                <!-- Grid Duplo: Usuários vs Instrutores -->
+                <div class="grid md:grid-cols-3 gap-6">
+
+                    <!-- CARD 1: PARA USUÁRIOS / ESTUDANTES -->
+                    <div
+                        class="group relative bg-white/5 backdrop-blur-sm p-8 md:p-10 rounded-3xl border border-white/10 hover:border-brand-gold/50 transition-all duration-300 flex flex-col justify-between hover:shadow-2xl hover:shadow-brand-gold/5">
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold group-hover:scale-110 transition-transform duration-300">
+                                    <i data-lucide="user-check" class="w-7 h-7"></i>
+                                </div>
+                                <span
+                                    class="text-xs uppercase tracking-widest text-brand-sage font-bold bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                                    Estudantes
+                                </span>
+                            </div>
+
+                            <div>
+                                <h3
+                                    class="text-2xl font-serif font-bold text-white group-hover:text-brand-gold transition-colors">
+                                    Para Alunos & Autodidatas
+                                </h3>
+                                <p class="text-xs text-brand-cream/70 mt-2 leading-relaxed">
+                                    Aprenda a raciocinar sobre a biologia decodificando radicais em um ecossistema
+                                    gamificado.
+                                </p>
+                            </div>
+
+                            <!-- Lista de Funcionalidades -->
+                            <ul class="space-y-3.5 pt-2 border-t border-white/10 text-sm text-brand-cream/90">
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold flex-shrink-0"></i>
+                                    <span>Acesso ao <strong>Decodificador Interativo</strong></span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold flex-shrink-0"></i>
+                                    <span>Trilhas de flashcards por disciplinas</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold flex-shrink-0"></i>
+                                    <span>Histórico de progresso e fixação individual</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-8 mt-6">
+                            <a href="price.html"
+                                class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-brand-gold text-white hover:text-brand-dark font-bold px-6 py-3.5 rounded-xl transition-all duration-300 text-sm group-hover:shadow-lg">
+                                <span>Saiba mais</span>
+                                <i data-lucide="arrow-right"
+                                    class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
                             </a>
                         </div>
                     </div>
-                    <!-- Elementos abstratos de fundo -->
-                    <div class="absolute -top-12 -left-12 w-48 h-48 bg-white/5 rounded-full"></div>
-                    <div class="absolute -bottom-12 -right-12 w-48 h-48 bg-white/5 rounded-full"></div>
+
+                    <!-- CARD 2: PARA INSTRUTORES / INSTITUIÇÕES -->
+                    <div
+                        class="group relative bg-white/5 backdrop-blur-sm p-8 md:p-10 rounded-3xl border border-white/10 hover:border-brand-sage/50 transition-all duration-300 flex flex-col justify-between hover:shadow-2xl hover:shadow-brand-sage/5">
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-brand-sage/10 border border-brand-sage/20 flex items-center justify-center text-brand-sage group-hover:scale-110 transition-transform duration-300">
+                                    <i data-lucide="school" class="w-7 h-7"></i>
+                                </div>
+                                <span
+                                    class="text-xs uppercase tracking-widest text-brand-gold font-bold bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                                    Educadores
+                                </span>
+                            </div>
+
+                            <div>
+                                <h3
+                                    class="text-2xl font-serif font-bold text-white group-hover:text-brand-sage transition-colors">
+                                    Para Instrutores & educadores
+                                </h3>
+                                <p class="text-xs text-brand-cream/70 mt-2 leading-relaxed">
+                                    Monitore o aprendizado das turmas em tempo real e reduza a necessidade de revisões
+                                    repetitivas.
+                                </p>
+                            </div>
+
+                            <!-- Lista de Funcionalidades -->
+                            <ul class="space-y-3.5 pt-2 border-t border-white/10 text-sm text-brand-cream/90">
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-sage flex-shrink-0"></i>
+                                    <span><strong>Painel Gestor</strong> com métricas por turma</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-sage flex-shrink-0"></i>
+                                    <span>Criação de listas e trilhas personalizadas</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-sage flex-shrink-0"></i>
+                                    <span>Gestão simplificada de licenças corporativas</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-8 mt-6">
+                            <a href="price.html"
+                                class="w-full inline-flex items-center justify-center gap-2 bg-brand-sage/20 hover:bg-brand-sage text-white hover:text-brand-dark font-bold px-6 py-3.5 rounded-xl transition-all duration-300 text-sm group-hover:shadow-lg">
+                                <span>Saiba mais</span>
+                                <i data-lucide="arrow-right"
+                                    class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3: PARA INSTITUIÇÕES -->
+
+                    <div
+                        class="group relative bg-white/5 backdrop-blur-sm p-8 md:p-10 rounded-3xl border border-white/10 hover:border-brand-sage/50 transition-all duration-300 flex flex-col justify-between hover:shadow-2xl hover:shadow-brand-sage/5">
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-brand-sage/10 border border-brand-sage/20 flex items-center justify-center text-brand-sage group-hover:scale-110 transition-transform duration-300">
+                                    <i data-lucide="school" class="w-7 h-7"></i>
+                                </div>
+                                <span
+                                    class="text-xs uppercase tracking-widest text-brand-gold font-bold bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                                    Instituições
+                                </span>
+                            </div>
+
+                            <div>
+                                <h3
+                                    class="text-2xl font-serif font-bold text-white group-hover:text-brand-sage transition-colors">
+                                    Para Instituições & Escolas
+                                </h3>
+                                <p class="text-xs text-brand-cream/70 mt-2 leading-relaxed">
+                                    Gerencie múltiplas turmas, distribua licenças e acompanhe o desempenho de alunos e
+                                    professores em um único painel.
+                                </p>
+                            </div>
+
+                            <!-- Lista de Funcionalidades -->
+                            <ul class="space-y-3.5 pt-2 border-t border-white/10 text-sm text-brand-cream/90">
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-sage flex-shrink-0"></i>
+                                    <span><strong>Painel Gestor</strong> com métricas por turma</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-sage flex-shrink-0"></i>
+                                    <span>Criação de listas e trilhas personalizadas</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-sage flex-shrink-0"></i>
+                                    <span>Gestão simplificada de licenças corporativas</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-8 mt-6">
+                            <a href="price.html"
+                                class="w-full inline-flex items-center justify-center gap-2 bg-brand-sage/20 hover:bg-brand-sage text-white hover:text-brand-dark font-bold px-6 py-3.5 rounded-xl transition-all duration-300 text-sm group-hover:shadow-lg">
+                                <span>Saiba mais</span>
+                                <i data-lucide="arrow-right"
+                                    class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
-        <!-- SEÇÃO: FAQ (PERGUNTAS FREQUENTES) -->
+
+
+
+        <!-- SEÇÃO: FAQ -->
         <section id="faq" class="py-20 bg-white">
             <div class="container mx-auto max-w-4xl px-6">
                 <div class="text-center mb-12">
@@ -651,6 +819,7 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <!-- RODAPÉ -->
@@ -666,6 +835,7 @@
         </div>
     </footer>
 
+    <!-- JS EXTERNO -->
     <script src="script.js"></script>
 </body>
 

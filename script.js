@@ -25,14 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
-    // Seleção de elementos do cabeçalho
+    // Elementos do cabeçalho
     const cabecalhoPrincipal = document.getElementById('cabecalho-principal');
     const barraNav = document.getElementById('barra-nav');
     const btnMenu = document.getElementById('botao-menu');
     const menuMovel = document.getElementById('menu-movel');
 
     /**
-     * 1. Lógica do Cabeçalho Flutuante (Floating Header)
+     * 1. Lógica do Cabeçalho Flutuante
      */
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -52,14 +52,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnMenu && menuMovel) {
         btnMenu.addEventListener('click', () => {
             menuMovel.classList.toggle('hidden');
+            menuMovel.classList.toggle('flex');
         });
 
-        // Fecha o menu ao clicar em um link
         const linksMoveis = menuMovel.querySelectorAll('a');
         linksMoveis.forEach(link => {
             link.addEventListener('click', () => {
                 menuMovel.classList.add('hidden');
+                menuMovel.classList.remove('flex');
             });
+        });
+    }
+
+    /**
+     * 3. Animação de Giro do Flashcard (Hero)
+     */
+    const flashcard = document.getElementById('flashcard-card');
+    if (flashcard) {
+        flashcard.addEventListener('click', () => {
+            const innerCard = flashcard.querySelector('.card-inner');
+            if (innerCard) {
+                innerCard.classList.toggle('rotate-y-180');
+            }
         });
     }
 
@@ -67,31 +81,39 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * 3. Funções de Simulação do Decodificador Morfológico
+ * 4. Funções de Simulação do Decodificador Morfológico
  */
-function selectPrefix(prefix, label) {
+function selectPrefix(prefix, label, evt) {
     selectedPrefix = prefix;
     selectedPrefixLabel = label;
-    
+
     // Atualiza estado visual dos botões de prefixo
     document.querySelectorAll('.prefix-btn').forEach(btn => {
         btn.classList.remove('border-brand-gold', 'bg-brand-sage/10');
     });
-    event.currentTarget.classList.add('border-brand-gold', 'bg-brand-sage/10');
-    
+
+    const targetBtn = evt ? evt.currentTarget : event.currentTarget;
+    if (targetBtn) {
+        targetBtn.classList.add('border-brand-gold', 'bg-brand-sage/10');
+    }
+
     updateDisplay();
 }
 
-function selectSuffix(suffix, label) {
+function selectSuffix(suffix, label, evt) {
     selectedSuffix = suffix;
     selectedSuffixLabel = label;
-    
+
     // Atualiza estado visual dos botões de sufixo
     document.querySelectorAll('.suffix-btn').forEach(btn => {
         btn.classList.remove('border-brand-gold', 'bg-brand-sage/10');
     });
-    event.currentTarget.classList.add('border-brand-gold', 'bg-brand-sage/10');
-    
+
+    const targetBtn = evt ? evt.currentTarget : event.currentTarget;
+    if (targetBtn) {
+        targetBtn.classList.add('border-brand-gold', 'bg-brand-sage/10');
+    }
+
     updateDisplay();
 }
 
@@ -111,8 +133,7 @@ function updateDisplay() {
     } else if (selectedPrefix && selectedSuffix) {
         const fullTerm = `${selectedPrefix}${selectedSuffix}`;
         const key = `${selectedPrefix}-${selectedSuffix}`;
-        
-        // Ajuste ortográfico simples (ex: glicolise -> glicólise)
+
         let formattedTerm = fullTerm;
         if (fullTerm === 'glicolise') formattedTerm = 'Glicólise';
         else if (fullTerm === 'glicogenese') formattedTerm = 'Glicogênese';
