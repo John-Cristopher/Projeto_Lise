@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
+    // Inicialização do objeto 3D da marca (somente na seção "Jornada")
+    initLiseMolecule('lise-3d-jornada');
+
     // Elementos do cabeçalho
     const cabecalhoPrincipal = document.getElementById('cabecalho-principal');
     const barraNav = document.getElementById('barra-nav');
@@ -151,6 +154,138 @@ function updateDisplay() {
             definitionDisplay.innerText = `O termo "${formattedTerm}" foi combinado estruturalmente com base nos radicais fornecidos, porém não possui definição registrada no simulador básico.`;
         }
     }
+}
+
+/**
+ * 5. Objeto 3D da Marca — "Molécula Lise"
+ *
+ * Uma estrutura de vértices e arestas, inspirada em uma molécula, que gira
+ * conforme a rolagem da página. A ideia reforça visualmente o próprio
+ * conceito por trás do nome "Lise": as partes (radicais/nós) que se
+ * reorganizam para formar um termo, em vez de um objeto decorativo genérico.
+ *
+ * Aceita um containerId para inicializar a cena no container da seção "Jornada".
+ */
+function initLiseMolecule(containerId = 'lise-3d') {
+    const container = document.getElementById(containerId);
+    if (!container || typeof THREE === 'undefined') return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let width = container.clientWidth;
+    let height = container.clientHeight;
+    if (width === 0 || height === 0) {
+        const observer = new ResizeObserver(() => {
+            if (container.clientWidth === 0 || container.clientHeight === 0) return;
+            observer.disconnect();
+            initLiseMolecule(containerId);
+        });
+        observer.observe(container);
+        return;
+    }
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+    camera.position.z = 5.4;
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(width, height);
+    container.appendChild(renderer.domElement);
+    const orbitingText = containerId === 'lise-3d-jornada'
+        ? document.getElementById('texto-circular-jornada')
+        : null;
+
+    // Núcleo: icosaedro em wireframe (as "arestas" entre os radicais)
+    const geometry = new THREE.IcosahedronGeometry(1.7, 1);
+    const edges = new THREE.EdgesGeometry(geometry);
+    const lineMaterial = new THREE.LineBasicMaterial({
+        color: 0x8DAA91, // brand-sage
+        transparent: true,
+        opacity: 0.55
+    });
+    const wireframe = new THREE.LineSegments(edges, lineMaterial);
+
+    // Nós: pontos dourados nos vértices (os "átomos"/termos)
+    const nodeMaterial = new THREE.PointsMaterial({
+        color: 0xC5A467, // brand-gold
+        size: 0.11,
+        transparent: true,
+        opacity: 0.9,
+        sizeAttenuation: true
+    });
+    const nodes = new THREE.Points(geometry, nodeMaterial);
+
+    const molecule = new THREE.Group();
+    molecule.add(wireframe);
+    molecule.add(nodes);
+    molecule.rotation.set(0.5, 0.6, 0);
+    scene.add(molecule);
+
+    let currentRotX = molecule.rotation.x;
+    let currentRotY = molecule.rotation.y;
+    let isTicking = false;
+
+    function targetRotationFromScroll() {
+        const scrollY = window.scrollY;
+        return {
+            x: 0.5 + Math.sin(scrollY * 0.0015) * 0.35,
+            y: 0.6 + scrollY * 0.0022
+        };
+    }
+
+    function render() {
+        if (orbitingText) {
+            const rotation = (currentRotY - 0.6) * (180 / Math.PI);
+            orbitingText.style.transform = `rotate(${rotation}deg)`;
+        }
+        renderer.render(scene, camera);
+    }
+
+    function tick() {
+        const target = targetRotationFromScroll();
+        // Suaviza a rotação (lerp) para que o giro acompanhe a rolagem
+        // sem parecer travado a cada pixel.
+        currentRotX += (target.x - currentRotX) * 0.06;
+        currentRotY += (target.y - currentRotY) * 0.06;
+        molecule.rotation.x = currentRotX;
+        molecule.rotation.y = currentRotY;
+        render();
+
+        // Continua a animação enquanto a rotação não convergiu ao alvo,
+        // evitando um loop de renderização rodando o tempo todo à toa.
+        if (Math.abs(target.x - currentRotX) > 0.0005 || Math.abs(target.y - currentRotY) > 0.0005) {
+            requestAnimationFrame(tick);
+        } else {
+            isTicking = false;
+        }
+    }
+
+    function requestTick() {
+        if (!isTicking) {
+            isTicking = true;
+            requestAnimationFrame(tick);
+        }
+    }
+
+    if (prefersReducedMotion) {
+        // Respeita a preferência do usuário: exibe a estrutura parada,
+        // em um ângulo fixo, sem animação de rolagem.
+        render();
+    } else {
+        window.addEventListener('scroll', requestTick, { passive: true });
+        requestTick();
+    }
+
+    window.addEventListener('resize', () => {
+        width = container.clientWidth;
+        height = container.clientHeight;
+        if (width === 0 || height === 0) return;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+        render();
+    });
 }
 
 function resetTerm() {
