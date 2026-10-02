@@ -55,6 +55,15 @@
         .rotate-y-180 {
             transform: rotateY(180deg);
         }
+
+        #jornada .grid {
+            perspective: 1200px;
+        }
+
+        #jornada .jornada-bloco {
+            transform-style: preserve-3d;
+            will-change: transform, opacity;
+        }
     </style>
 </head>
 
@@ -390,7 +399,7 @@
                                 <text
                                     class="fill-brand-dark/70 font-sans text-[13px] font-semibold tracking-[0.24em]">
                                     <textPath href="#trajeto-texto-jornada">
-                                        DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA •
+                                        DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA
                                     </textPath>
                                 </text>
                             </svg>

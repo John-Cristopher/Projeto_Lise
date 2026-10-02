@@ -195,6 +195,12 @@ function initLiseMolecule(containerId = 'lise-3d') {
     const orbitingText = containerId === 'lise-3d-jornada'
         ? document.getElementById('texto-circular-jornada')
         : null;
+    const journeySection = containerId === 'lise-3d-jornada'
+        ? document.getElementById('jornada')
+        : null;
+    const journeySteps = journeySection
+        ? Array.from(journeySection.querySelectorAll('.jornada-bloco'))
+        : [];
 
     // Núcleo: icosaedro em wireframe (as "arestas" entre os radicais)
     const geometry = new THREE.IcosahedronGeometry(1.7, 1);
@@ -226,15 +232,65 @@ function initLiseMolecule(containerId = 'lise-3d') {
     let currentRotY = molecule.rotation.y;
     let isTicking = false;
 
+    function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+    }
+
     function targetRotationFromScroll() {
-        const scrollY = window.scrollY;
+        if (!journeySection) {
+            return { x: 0.5, y: 0.6 };
+        }
+
+        const sectionRect = journeySection.getBoundingClientRect();
+        const progress = clamp(
+            (window.innerHeight - sectionRect.top) / (sectionRect.height + window.innerHeight),
+            0,
+            1
+        );
+
         return {
-            x: 0.5 + Math.sin(scrollY * 0.0015) * 0.35,
-            y: 0.6 + scrollY * 0.0022
+            x: 0.5 + Math.sin(progress * Math.PI) * 0.35,
+            y: 0.6 + progress * Math.PI
         };
     }
 
+    function updateJourneySteps() {
+        if (!journeySection || journeySteps.length === 0) return;
+
+        const stage = container.getBoundingClientRect();
+        const orbitLeft = stage.left + stage.width / 2 - Math.min(stage.width, stage.height) * 0.43;
+        const orbitCenterY = stage.top + stage.height / 2;
+        const orbitRadius = window.innerHeight * 0.62;
+
+        journeySteps.forEach(step => {
+            const rect = step.getBoundingClientRect();
+            const currentTranslateX = Number(step.dataset.orbitTranslateX || 0);
+            const stepCenterY = rect.top + rect.height / 2;
+            const progress = clamp(
+                0.5 - (stepCenterY - orbitCenterY) / (orbitRadius * 2),
+                0,
+                1
+            );
+            const arc = Math.sin(progress * Math.PI);
+            const stepCenterX = rect.left + rect.width / 2 - currentTranslateX;
+            const maxTranslateX = Math.max(
+                0,
+                orbitLeft - 20 - rect.width / 2 - stepCenterX
+            );
+            const translateX = maxTranslateX * arc;
+            const rotateX = (0.5 - progress) * 48;
+            const rotateY = (0.5 - progress) * 24;
+            const scale = 0.94 + arc * 0.06;
+
+            step.dataset.orbitTranslateX = String(translateX);
+            step.style.opacity = String(arc);
+            step.style.transform =
+                `translate3d(${translateX}px, 0, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+        });
+    }
+
     function render() {
+        updateJourneySteps();
         if (orbitingText) {
             const rotation = (currentRotY - 0.6) * (180 / Math.PI);
             orbitingText.style.transform = `rotate(${rotation}deg)`;
@@ -285,6 +341,7 @@ function initLiseMolecule(containerId = 'lise-3d') {
         camera.updateProjectionMatrix();
         renderer.setSize(width, height);
         render();
+        updateJourneySteps();
     });
 }
 
