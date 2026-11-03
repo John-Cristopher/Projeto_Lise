@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós - Lise</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="icon" href="./img/android-chrome-512x512.png" type="image/png">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#4A5D4E',
+                            sage: '#8DAA91',
+                            gold: '#C5A467',
+                            cream: '#F9F7F2',
+                            slate: '#465A65',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-brand-cream text-brand-slate font-sans antialiased selection:bg-brand-sage/30 selection:text-brand-dark">
+    <header class="fixed w-full top-0 z-50 py-4 px-4 md:px-6">
+        <nav class="container mx-auto flex justify-between items-center bg-brand-dark/90 backdrop-blur-md py-3 px-6 rounded-2xl shadow-xl border border-white/10">
+            <a href="index.html" class="text-2xl md:text-3xl font-serif font-bold text-white hover:text-brand-gold transition-colors">
+                Lise<span class="text-brand-gold">.</span>
+            </a>
+            <a href="index.html" class="text-brand-cream hover:text-brand-gold text-sm font-semibold flex items-center gap-2 transition-colors">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar para o Início
+            </a>
+        </nav>
+    </header>
+
+    <main class="pt-32 pb-24">
+        <section class="relative overflow-hidden bg-brand-dark text-brand-cream">
+            <div class="container mx-auto max-w-6xl px-6 pt-20 pb-28 md:pt-28 md:pb-36 grid md:grid-cols-12 gap-12 items-center relative z-10">
+                <div class="md:col-span-7">
+                    <span class="inline-flex items-center gap-2 bg-white/10 text-brand-gold px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
+                        Grupo Bit Bang Theory apresenta
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold mt-7 leading-tight">
+                        A ciência não precisa ser decorada. <span class="italic text-brand-gold">Pode ser decifrada.</span>
+                    </h1>
+                    <p class="max-w-xl mt-6 text-brand-cream/75 leading-relaxed">
+                        Criamos o Lise para transformar palavras complexas da biologia em descobertas.
+                        Somos uma equipe acadêmica construindo uma nova forma de aprender, uma raiz de cada vez.
+                    </p>
+                    <a href="#equipe" class="inline-flex items-center gap-2 mt-8 bg-brand-gold text-brand-dark px-6 py-3 rounded-xl font-bold text-sm hover:bg-brand-cream transition-colors">
+                        Conheça nossa equipe <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                    </a>
+                </div>
+                <div class="md:col-span-5">
+                    <div class="relative max-w-md mx-auto">
+                        <div class="absolute -inset-3 rounded-[2rem] border border-brand-gold/30 rotate-3"></div>
+                        <div class="relative aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-br from-brand-sage/30 via-brand-dark to-black/40 border border-white/15 flex items-center justify-center">
+                            <img src="./img/lise-logo-vetor.svg" alt="Identidade visual do projeto Lise" class="w-full max-w-[420px] object-contain opacity-90 drop-shadow-[0_18px_28px_rgba(31,84,71,0.18)]">
+                            <div class="absolute inset-x-4 bottom-4 rounded-2xl bg-brand-dark/85 backdrop-blur-sm border border-white/10 px-4 py-3 flex items-center gap-3">
+                                <span class="w-10 h-10 rounded-xl bg-brand-gold/15 text-brand-gold flex items-center justify-center shrink-0">
+                                    <i data-lucide="image" class="w-5 h-5"></i>
+                                </span>
+                                <span>
+                                    <span class="block text-sm font-semibold text-white">Um projeto feito em equipe</span>
+                                    <span class="block text-xs text-brand-cream/60">Espaço reservado para foto institucional</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <svg class="absolute bottom-0 left-0 w-full h-12 md:h-20 text-brand-cream" viewBox="0 0 1440 120"
+                preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M0,56 C240,104 480,104 720,56 C960,8 1200,8 1440,56 L1440,120 L0,120 Z" />
+            </svg>
+        </section>
+
+        <section class="container mx-auto max-w-6xl px-6 py-20 md:py-28">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-5">
+                    <p class="text-brand-gold uppercase tracking-wider text-xs font-semibold mb-3">Nossa história</p>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-brand-dark">Uma ideia que conecta palavras e conhecimento</h2>
+                </div>
+                <div class="md:col-span-7 space-y-4 text-brand-slate/80 leading-relaxed">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod, urna eu tincidunt
+                        consectetur, nisi nisl aliquam nunc, vitae facilisis sapien erat at justo. A partir do interesse
+                        por novas formas de aprender, nasceu a vontade de explorar a estrutura das palavras biológicas.
+                    </p>
+                    <p>
+                        Integer at lorem sed sapien feugiat consequat. Nossa jornada reúne pesquisa, colaboração e
+                        desenvolvimento para aproximar a etimologia da sala de aula. O Lise continua evoluindo com
+                        cada etapa do projeto e com cada conexão que tornamos mais fácil de compreender.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white py-20 md:py-24">
+            <div class="container mx-auto max-w-6xl px-6">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <p class="text-brand-gold uppercase tracking-wider text-xs font-semibold mb-2">O que nos guia</p>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-brand-dark">Propósito em cada descoberta</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <article class="rounded-2xl bg-brand-cream p-7 border border-brand-slate/5">
+                        <span class="w-12 h-12 rounded-xl bg-brand-dark text-brand-gold flex items-center justify-center mb-5">
+                            <i data-lucide="target" class="w-6 h-6"></i>
+                        </span>
+                        <h3 class="text-xl font-serif font-bold text-brand-dark">Missão</h3>
+                        <p class="text-sm text-brand-slate/75 mt-3 leading-relaxed">
+                            Tornar a linguagem biológica mais acessível por meio da etimologia, da interação e da aprendizagem com significado.
+                        </p>
+                    </article>
+                    <article class="rounded-2xl bg-brand-cream p-7 border border-brand-slate/5">
+                        <span class="w-12 h-12 rounded-xl bg-brand-dark text-brand-gold flex items-center justify-center mb-5">
+                            <i data-lucide="telescope" class="w-6 h-6"></i>
+                        </span>
+                        <h3 class="text-xl font-serif font-bold text-brand-dark">Visão</h3>
+                        <p class="text-sm text-brand-slate/75 mt-3 leading-relaxed">
+                            Inspirar estudantes e educadores a explorar os conceitos científicos com autonomia, curiosidade e confiança.
+                        </p>
+                    </article>
+                    <article class="rounded-2xl bg-brand-cream p-7 border border-brand-slate/5">
+                        <span class="w-12 h-12 rounded-xl bg-brand-dark text-brand-gold flex items-center justify-center mb-5">
+                            <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                        </span>
+                        <h3 class="text-xl font-serif font-bold text-brand-dark">Valores</h3>
+                        <p class="text-sm text-brand-slate/75 mt-3 leading-relaxed">
+                            Colaboração, clareza, curiosidade científica, inclusão e compromisso com uma educação que faça sentido.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="container mx-auto max-w-6xl px-6 py-20 md:py-24">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <p class="text-brand-gold uppercase tracking-wider text-xs font-semibold mb-2">Marcos do projeto</p>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-brand-dark">Da raiz ao aprendizado interativo</h2>
+                <p class="text-brand-slate/75 text-sm mt-4">As frentes que dão forma à experiência Lise.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <article class="bg-white rounded-2xl p-7 border border-brand-slate/5 shadow-sm">
+                    <span class="text-3xl font-serif font-bold text-brand-gold">01</span>
+                    <h3 class="font-serif text-xl font-bold text-brand-dark mt-4">Decodificação etimológica</h3>
+                    <p class="text-sm text-brand-slate/70 mt-3 leading-relaxed">Radicais, prefixos e sufixos revelam as partes que formam os termos biológicos.</p>
+                </article>
+                <article class="bg-white rounded-2xl p-7 border border-brand-slate/5 shadow-sm">
+                    <span class="text-3xl font-serif font-bold text-brand-gold">02</span>
+                    <h3 class="font-serif text-xl font-bold text-brand-dark mt-4">Aprendizagem pela prática</h3>
+                    <p class="text-sm text-brand-slate/70 mt-3 leading-relaxed">Um simulador interativo convida estudantes a combinar elementos e descobrir significados.</p>
+                </article>
+                <article class="bg-white rounded-2xl p-7 border border-brand-slate/5 shadow-sm">
+                    <span class="text-3xl font-serif font-bold text-brand-gold">03</span>
+                    <h3 class="font-serif text-xl font-bold text-brand-dark mt-4">Uma equipe colaborativa</h3>
+                    <p class="text-sm text-brand-slate/70 mt-3 leading-relaxed">Gestão, desenvolvimento e design se unem para dar vida a uma ferramenta educacional.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="equipe" class="bg-brand-dark text-brand-cream py-20 md:py-24">
+            <div class="container mx-auto max-w-6xl px-6">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <p class="text-brand-gold uppercase tracking-wider text-xs font-semibold mb-2">Grupo Bit Bang Theory</p>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white">As pessoas por trás do projeto</h2>
+                <p class="text-brand-cream/70 text-sm mt-4">
+                    Cada integrante contribui com sua experiência para criar um ecossistema de aprendizagem intuitivo e interativo.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <article class="bg-white text-brand-slate rounded-2xl p-6 border border-white/10 shadow-sm hover:shadow-xl transition-shadow">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-sage/15 mb-5 flex items-center justify-center text-brand-dark">
+                        <i data-lucide="users-round" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-xl text-brand-dark">Lívia Domingues</h3>
+                    <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-2">Scrum Master e Desenvolvedora</p>
+                    <p class="text-sm text-brand-slate/70 mt-4 leading-relaxed">Desenvolvimento e apoio à gestão ágil do ecossistema Lise.</p>
+                    <a href="mailto:livia.matos.senai@gmail.com" class="text-xs text-brand-slate/60 hover:text-brand-dark break-all inline-block mt-5 pt-4 border-t border-slate-100 w-full">
+                        livia.matos.senai@gmail.com
+                    </a>
+                </article>
+
+                <article class="bg-white text-brand-slate rounded-2xl p-6 border border-white/10 shadow-sm hover:shadow-xl transition-shadow">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-sage/15 mb-5 flex items-center justify-center text-brand-dark">
+                        <i data-lucide="code-xml" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-xl text-brand-dark">Isabelly Ferreira</h3>
+                    <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-2">Tech Lead e Desenvolvedora</p>
+                    <p class="text-sm text-brand-slate/70 mt-4 leading-relaxed">Arquitetura técnica do projeto e liderança de desenvolvimento.</p>
+                    <a href="mailto:isabelly.ferreira.senai@gmail.com" class="text-xs text-brand-slate/60 hover:text-brand-dark break-all inline-block mt-5 pt-4 border-t border-slate-100 w-full">
+                        isabelly.ferreira.senai@gmail.com
+                    </a>
+                </article>
+
+                <article class="bg-white text-brand-slate rounded-2xl p-6 border border-white/10 shadow-sm hover:shadow-xl transition-shadow">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-sage/15 mb-5 flex items-center justify-center text-brand-dark">
+                        <i data-lucide="server" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-xl text-brand-dark">João Pedro Stadler</h3>
+                    <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-2">Desenvolvedor Back-End</p>
+                    <p class="text-sm text-brand-slate/70 mt-4 leading-relaxed">Construção de rotas, API e integração da base de termos biológicos.</p>
+                    <a href="mailto:joãopedrostadlerroza.senai@gmail.com" class="text-xs text-brand-slate/60 hover:text-brand-dark break-all inline-block mt-5 pt-4 border-t border-slate-100 w-full">
+                        joãopedrostadlerroza.senai@gmail.com
+                    </a>
+                </article>
+
+                <article class="bg-white text-brand-slate rounded-2xl p-6 border border-white/10 shadow-sm hover:shadow-xl transition-shadow">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-sage/15 mb-5 flex items-center justify-center text-brand-dark">
+                        <i data-lucide="panels-top-left" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-xl text-brand-dark">John Cristopher</h3>
+                    <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-2">Desenvolvedor Front-End</p>
+                    <p class="text-sm text-brand-slate/70 mt-4 leading-relaxed">Criação das interfaces, componentes responsivos e experiência visual.</p>
+                    <a href="mailto:john.cristopher.senai@gmail.com" class="text-xs text-brand-slate/60 hover:text-brand-dark break-all inline-block mt-5 pt-4 border-t border-slate-100 w-full">
+                        john.cristopher.senai@gmail.com
+                    </a>
+                </article>
+            </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="min-h-[280px] bg-white border-t border-brand-slate/10 py-16 md:py-20 flex items-center">
+        <div class="container mx-auto px-6 max-w-6xl grid md:grid-cols-2 gap-10 items-center">
+            <div class="text-center md:text-left">
+                <p class="text-brand-slate/60 text-sm">&copy; 2026 Lise. Desenvolvido pelo grupo Bit Bang Theory.</p>
+                <nav aria-label="Links do rodapé" class="mt-6 flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3 text-sm text-brand-slate/50">
+                    <a href="index.html" class="hover:text-brand-gold transition">Início</a>
+                    <a href="index.html#problema" class="hover:text-brand-gold transition">O Estudo</a>
+                    <a href="index.html#metodo" class="hover:text-brand-gold transition">Etimologia</a>
+                    <a href="price.html" class="hover:text-brand-gold transition">Planos</a>
+                </nav>
+            </div>
+            <div class="text-center md:text-right">
+                <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mb-3">Equipe Bit Bang Theory</p>
+                <ul class="space-y-2 text-sm text-brand-slate/70">
+                    <li>Lívia Domingues</li>
+                    <li>Isabelly Ferreira</li>
+                    <li>João Pedro Stadler</li>
+                    <li>John Cristopher</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

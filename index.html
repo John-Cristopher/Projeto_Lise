@@ -34,11 +34,84 @@
         }
     </script>
     <style>
-        #cabecalho-principal {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        .liquid-hover-button {
+            position: relative;
+            isolation: isolate;
+            overflow: visible;
         }
 
-        /* Estilos estruturais para o Flashcard Interativo 3D */
+        .liquid-hover-button > .liquid-hover-svg {
+            position: absolute;
+            top: -18px;
+            left: -18px;
+            z-index: 0;
+            overflow: visible;
+            pointer-events: none;
+        }
+
+        .liquid-hover-content {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: inherit;
+            gap: inherit;
+        }
+
+        .liquid-hover-button.w-full > .liquid-hover-content {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Filtro Gooey / Líquido */
+        .gooey-filter {
+            filter: url('#gooey-effect');
+        }
+
+        /* Header flutuante com retração contínua ao rolar */
+        #cabecalho-principal {
+            padding-top: 1rem;
+            transition: padding-top 500ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        #barra-nav {
+            position: relative;
+            width: 100%;
+            max-width: 80rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -14px rgba(34, 48, 39, 0.45);
+            transition:
+                max-width 650ms cubic-bezier(0.22, 1, 0.36, 1),
+                border-radius 500ms cubic-bezier(0.22, 1, 0.36, 1),
+                padding 500ms cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 500ms ease,
+                background-color 500ms ease;
+        }
+
+        /* A barra encolhe e arredonda sem saltos ao rolar */
+        #cabecalho-principal.is-scrolled {
+            padding-top: 0.75rem;
+        }
+
+        #cabecalho-principal.is-scrolled #barra-nav {
+            max-width: 72rem;
+            border-radius: 999px;
+            padding-top: 0.7rem;
+            padding-bottom: 0.7rem;
+            box-shadow: 0 16px 35px -18px rgba(34, 48, 39, 0.65), 0 5px 14px -10px rgba(0, 0, 0, 0.35);
+            background-color: rgba(74, 93, 78, 0.95);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            #cabecalho-principal,
+            #barra-nav {
+                transition-duration: 0.01ms;
+            }
+        }
+
+        /* Flashcard e 3D Styles */
         .perspective-1000 {
             perspective: 1000px;
         }
@@ -56,10 +129,6 @@
             transform: rotateY(180deg);
         }
 
-        #jornada .grid {
-            perspective: 1200px;
-        }
-
         #jornada .jornada-bloco {
             transform-style: preserve-3d;
             will-change: transform, opacity;
@@ -70,62 +139,80 @@
 <body
     class="bg-brand-cream text-brand-slate font-sans antialiased selection:bg-brand-sage/30 selection:text-brand-dark">
 
-    <!-- HEADER / NAVEGAÇÃO -->
-    <header id="cabecalho-principal" class="fixed w-full top-0 z-50 py-4 px-4 md:px-6">
-        <nav id="barra-nav"
-            class="container mx-auto flex justify-between items-center bg-brand-dark/80 backdrop-blur-md py-3 px-6 rounded-2xl shadow-2xl border border-white/10 transition-all duration-300">
+    <!-- Filtro SVG para efeito líquido / Meta-ball -->
+    <svg class="hidden" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+            <filter id="gooey-effect">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                    result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+            </filter>
+        </defs>
+    </svg>
 
-            <!-- Logo -->
-            <a href="#inicio"
-                class="text-2xl md:text-3xl font-serif font-bold text-white hover:text-brand-gold transition-colors">
-                Lise<span class="text-brand-gold">.</span>
-            </a>
+    <!-- HEADER / NAVEGAÇÃO RESTRUCTURADA -->
+    <header id="cabecalho-principal" class="fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <nav id="barra-nav"
+                class="mx-auto flex justify-between items-center bg-brand-dark px-6 py-4 rounded-2xl border border-white/10 backdrop-blur-md">
 
-            <!-- Menu Desktop (Links Principais) -->
-            <ul class="hidden md:flex items-center space-x-7 font-medium text-sm text-brand-cream/80">
-                <li><a href="#inicio" class="hover:text-brand-gold transition-colors">Início</a></li>
-                <li><a href="#problema" class="hover:text-brand-gold transition-colors">Método</a></li>
-                <li><a href="#recursos" class="hover:text-brand-gold transition-colors">Recursos</a></li>
-                <li><a href="#planos" class="hover:text-brand-gold transition-colors">Para Quem É</a></li>
-                <li><a href="#faq" class="hover:text-brand-gold transition-colors">Dúvidas</a></li>
-                <li>
-                    <!-- Link Externo de Preços em Destaque Visual Discreto -->
-                    <a href="price.html" class="text-brand-gold font-semibold hover:underline flex items-center gap-1">
-                        <span>Planos</span>
-                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                <!-- Logo -->
+                <a href="#inicio"
+                    class="text-2xl md:text-3xl font-serif font-bold text-white hover:text-brand-gold transition-colors">
+                    Lise<span class="text-brand-gold">.</span>
+                </a>
+
+                <!-- Links Internos de Navegação da Landing Page -->
+                <ul class="hidden lg:flex items-center space-x-7 font-medium text-sm text-brand-cream/80">
+                    <li><a href="#inicio" class="hover:text-brand-gold transition-colors">Início</a></li>
+                    <li><a href="#problema" class="hover:text-brand-gold transition-colors">Método</a></li>
+                    <li><a href="#jornada" class="hover:text-brand-gold transition-colors">Jornada</a></li>
+                    <li><a href="#metodo" class="hover:text-brand-gold transition-colors">Simulador</a></li>
+                    <li><a href="#recursos" class="hover:text-brand-gold transition-colors">Recursos</a></li>
+                    <li><a href="#faq" class="hover:text-brand-gold transition-colors">FAQ</a></li>
+                </ul>
+
+                <!-- Divisor Visual & Links para Outras Páginas (Sobre Nós e Preços) -->
+                <div class="hidden md:flex items-center gap-6 border-l border-white/15 pl-6">
+                    <a href="about.html"
+                        class="text-sm font-semibold text-brand-cream/90 hover:text-brand-gold transition-colors flex items-center gap-1.5">
+                        <i data-lucide="users" class="w-4 h-4 text-brand-sage"></i>
+                        <span>Sobre Nós</span>
                     </a>
-                </li>
-            </ul>
+                    <a href="price.html"
+                        class="liquid-hover-button text-brand-dark px-5 py-2 text-sm font-bold"
+                        data-color1="#C5A467" data-color2="#D4B77F" data-color3="#E8D4A8">
+                        Ver Planos
+                    </a>
+                </div>
 
-            <!-- Botão CTA Principal (Desktop) -->
-            <div class="hidden md:block">
+                <!-- Botão Mobile -->
+                <button id="botao-menu" aria-label="Abrir Menu" class="lg:hidden focus:outline-none text-white p-2">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </nav>
+
+            <!-- Menu Mobile -->
+            <div id="menu-movel"
+                class="hidden lg:hidden bg-brand-dark/95 backdrop-blur-xl mt-2 rounded-2xl shadow-2xl border border-white/10 p-6 flex-col gap-4 text-brand-cream">
+                <a href="#inicio" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Início</a>
+                <a href="#problema" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Método
+                    Lise</a>
+                <a href="#metodo" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Simulador
+                    Interativo</a>
+                <a href="#recursos" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Recursos</a>
+                <a href="#faq" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">FAQ</a>
+                <a href="about.html"
+                    class="py-2 border-b border-white/10 font-medium text-brand-sage hover:text-brand-gold flex items-center gap-2">
+                    <i data-lucide="users" class="w-4 h-4"></i> Sobre Nós
+                </a>
                 <a href="price.html"
-                    class="bg-brand-cream text-brand-dark px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-brand-gold transition-all duration-200 shadow-md shadow-brand-gold/10">
-                    Ver Preços
+                    class="liquid-hover-button mt-2 w-full text-center text-brand-dark py-3 font-bold text-sm"
+                    data-color1="#C5A467" data-color2="#D4B77F" data-color3="#E8D4A8">
+                    Planos e Preços
                 </a>
             </div>
-
-            <!-- Botão Mobile -->
-            <button id="botao-menu" aria-label="Abrir Menu" class="md:hidden focus:outline-none text-white p-2">
-                <i data-lucide="menu" class="w-6 h-6"></i>
-            </button>
-        </nav>
-
-        <!-- Menu Mobile Refatorado -->
-        <div id="menu-movel"
-            class="hidden md:hidden bg-brand-dark/95 backdrop-blur-xl mt-3 rounded-2xl shadow-2xl border border-white/10 p-6 flex-col gap-4 text-brand-cream">
-            <a href="#inicio" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Início</a>
-            <a href="#problema" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Método Lise</a>
-            <a href="#planos" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Para Quem É</a>
-            <a href="#recursos"
-                class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Funcionalidades</a>
-            <a href="#faq" class="py-2 border-b border-white/10 font-medium hover:text-brand-gold">Dúvidas</a>
-
-            <!-- CTA Mobile para price.html -->
-            <a href="price.html"
-                class="mt-2 w-full text-center bg-brand-gold text-brand-dark py-3 rounded-xl font-bold text-sm hover:bg-white transition-colors">
-                Conhecer Planos
-            </a>
         </div>
     </header>
 
@@ -133,8 +220,8 @@
 
         <!-- SEÇÃO HERO -->
         <section id="inicio"
-            class="min-h-screen flex items-center pt-20 pb-12 px-6 bg-gradient-to-b from-brand-cream via-brand-cream to-white overflow-hidden">
-            <div class="container mx-auto max-w-6xl w-full">
+            class="relative min-h-screen flex items-center pt-20 pb-24 px-6 bg-brand-cream overflow-hidden">
+            <div class="container mx-auto max-w-6xl w-full relative z-10">
                 <div class="grid md:grid-cols-12 gap-12 items-center">
                     <div class="md:col-span-7 space-y-8">
                         <span
@@ -154,11 +241,13 @@
                         </p>
                         <div class="flex flex-wrap gap-4 pt-2">
                             <a href="#metodo"
-                                class="bg-brand-dark text-white px-8 py-4 rounded-xl font-semibold hover:bg-brand-slate transition-all transform hover:-translate-y-1 shadow-lg shadow-brand-dark/25 inline-flex items-center gap-2">
+                                class="liquid-hover-button text-white px-8 py-4 font-semibold inline-flex items-center gap-2"
+                                data-color1="#4A5D4E" data-color2="#5D7462" data-color3="#8DAA91">
                                 Testar decodificador <i data-lucide="arrow-right" class="w-4 h-4"></i>
                             </a>
                             <a href="#problema"
-                                class="border border-brand-slate/20 text-brand-dark px-8 py-4 rounded-xl font-semibold hover:bg-white hover:border-brand-dark transition-all">
+                                class="liquid-hover-button text-brand-dark px-8 py-4 font-semibold"
+                                data-color1="#F9F7F2" data-color2="#E7EFE8" data-color3="#C6D8CA">
                                 Entender o Método
                             </a>
                         </div>
@@ -258,6 +347,11 @@
                     </div>
                 </div>
             </div>
+            <svg class="absolute bottom-0 left-0 w-full h-16 md:h-24 text-brand-dark" viewBox="0 0 1440 120"
+                preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path fill="currentColor"
+                    d="M0,64 C240,120 480,120 720,72 C960,24 1200,24 1440,72 L1440,120 L0,120 Z" />
+            </svg>
         </section>
 
         <!-- SEÇÃO: O PROBLEMA VS CIÊNCIA -->
@@ -393,13 +487,12 @@
                                 class="absolute inset-0 w-full h-full pointer-events-none origin-center"
                                 viewBox="0 0 500 500" aria-hidden="true">
                                 <defs>
-                                    <path id="trajeto-texto-jornada"
-                                        d="M 250 40 A 210 210 0 1 1 249.99 40" />
+                                    <path id="trajeto-texto-jornada" d="M 250 40 A 210 210 0 1 1 249.99 40" />
                                 </defs>
-                                <text
-                                    class="fill-brand-dark/70 font-sans text-[13px] font-semibold tracking-[0.24em]">
+                                <text class="fill-brand-dark/70 font-sans text-[13px] font-semibold tracking-[0.24em]">
                                     <textPath href="#trajeto-texto-jornada">
-                                        DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA
+                                        DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE
+                                        • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA
                                     </textPath>
                                 </text>
                             </svg>
@@ -411,8 +504,12 @@
         </section>
 
         <!-- SEÇÃO: INTERATIVIDADE (O DECODIFICADOR) -->
-        <section id="metodo" class="min-h-screen flex items-center py-20 bg-white relative">
-            <div class="container mx-auto max-w-5xl px-6 w-full">
+        <section id="metodo" class="min-h-screen flex items-center py-28 bg-brand-cream relative overflow-hidden">
+            <svg class="absolute top-0 left-0 w-full h-16 md:h-24 text-white" viewBox="0 0 1440 120"
+                preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M0,0 H1440 V56 C1200,104 960,104 720,56 C480,8 240,8 0,56 Z" />
+            </svg>
+            <div class="container mx-auto max-w-5xl px-6 w-full relative z-10">
                 <div class="text-center max-w-2xl mx-auto mb-12">
                     <span class="text-brand-gold font-bold text-xs uppercase tracking-wider block mb-2">Simulador
                         Lise</span>
@@ -424,7 +521,7 @@
                     </p>
                 </div>
 
-                <div class="bg-brand-cream rounded-3xl p-8 border border-brand-slate/5 shadow-xl">
+                <div class="bg-white rounded-3xl p-8 border border-brand-slate/5 shadow-xl">
                     <div class="grid md:grid-cols-2 gap-8">
 
                         <!-- Coluna 1: Opções de Radicais -->
@@ -585,110 +682,6 @@
             </div>
         </section>
 
-        <!-- SEÇÃO: DESENVOLVEDORES -->
-        <section id="desenvolvedores" class="min-h-screen flex items-center py-20 bg-white">
-            <div class="container mx-auto max-w-6xl px-6 w-full">
-                <div class="text-center max-w-2xl mx-auto mb-16">
-                    <p class="text-brand-gold uppercase tracking-wider text-xs font-semibold mb-2">Quem Somos</p>
-                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-brand-dark">Desenvolvedores do Projeto
-                    </h2>
-                    <p class="text-brand-slate/80 text-sm mt-4">
-                        Conheça os acadêmicos responsáveis pela idealização, design e programação do ecossistema Lise.
-                    </p>
-                </div>
-
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div
-                        class="group bg-brand-cream/50 rounded-2xl p-6 border border-brand-slate/5 text-center flex flex-col hover:shadow-xl transition-all duration-500 ease-in-out cursor-default">
-                        <div
-                            class="w-16 h-16 rounded-full bg-brand-slate/10 mx-auto mb-4 flex items-center justify-center text-brand-dark transition-transform duration-500 group-hover:scale-110">
-                            <i data-lucide="code" class="w-8 h-8"></i>
-                        </div>
-                        <h4 class="font-serif font-bold text-lg text-brand-dark">Lívia Domingues</h4>
-                        <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1">Scrum Master e
-                            Desenvolvedora</p>
-                        <div
-                            class="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 ease-in-out">
-                            <div class="overflow-hidden">
-                                <p class="text-xs text-brand-slate/70 mt-4 leading-relaxed">Desenvolvimento e apoio à
-                                    gestão ágil do ecossistema Lise.</p>
-                                <div
-                                    class="pt-4 mt-4 border-t border-slate-200 text-xs text-brand-slate/50 flex items-center justify-center gap-1">
-                                    livia.matos.senai@gmail.com
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                        class="group bg-brand-cream/50 rounded-2xl p-6 border border-brand-slate/5 text-center flex flex-col hover:shadow-xl transition-all duration-500 ease-in-out cursor-default">
-                        <div
-                            class="w-16 h-16 rounded-full bg-brand-slate/10 mx-auto mb-4 flex items-center justify-center text-brand-dark transition-transform duration-500 group-hover:scale-110">
-                            <i data-lucide="code" class="w-8 h-8"></i>
-                        </div>
-                        <h4 class="font-serif font-bold text-lg text-brand-dark">Isabelly Ferreira</h4>
-                        <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1">Tech Lead e
-                            Desenvolvedora</p>
-                        <div
-                            class="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 ease-in-out">
-                            <div class="overflow-hidden">
-                                <p class="text-xs text-brand-slate/70 mt-4 leading-relaxed">Arquitetura técnica do
-                                    projeto e liderança de desenvolvimento.</p>
-                                <div
-                                    class="pt-4 mt-4 border-t border-slate-200 text-xs text-brand-slate/50 flex items-center justify-center gap-1">
-                                    isabelly.ferreira.senai@gmail.com
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                        class="group bg-brand-cream/50 rounded-2xl p-6 border border-brand-slate/5 text-center flex flex-col hover:shadow-xl transition-all duration-500 ease-in-out cursor-default">
-                        <div
-                            class="w-16 h-16 rounded-full bg-brand-slate/10 mx-auto mb-4 flex items-center justify-center text-brand-dark transition-transform duration-500 group-hover:scale-110">
-                            <i data-lucide="code" class="w-8 h-8"></i>
-                        </div>
-                        <h4 class="font-serif font-bold text-lg text-brand-dark">João Pedro Stadler</h4>
-                        <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1">Desenvolvedor
-                            Back-End</p>
-                        <div
-                            class="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 ease-in-out">
-                            <div class="overflow-hidden">
-                                <p class="text-xs text-brand-slate/70 mt-4 leading-relaxed">Construção de rotas, API e
-                                    integração da base de termos biológicos.</p>
-                                <div
-                                    class="pt-4 mt-4 border-t border-slate-200 text-xs text-brand-slate/50 flex items-center justify-center gap-1">
-                                    joãopedrostadlerroza.senai@gmail.com
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                        class="group bg-brand-cream/50 rounded-2xl p-6 border border-brand-slate/5 text-center flex flex-col hover:shadow-xl transition-all duration-500 ease-in-out cursor-default">
-                        <div
-                            class="w-16 h-16 rounded-full bg-brand-slate/10 mx-auto mb-4 flex items-center justify-center text-brand-dark transition-transform duration-500 group-hover:scale-110">
-                            <i data-lucide="code" class="w-8 h-8"></i>
-                        </div>
-                        <h4 class="font-serif font-bold text-lg text-brand-dark">John Cristopher</h4>
-                        <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1">Desenvolvedor
-                            Front-End</p>
-                        <div
-                            class="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 ease-in-out">
-                            <div class="overflow-hidden">
-                                <p class="text-xs text-brand-slate/70 mt-4 leading-relaxed">Criação das interfaces,
-                                    componentes responsivos e experiência visual.</p>
-                                <div
-                                    class="pt-4 mt-4 border-t border-slate-200 text-xs text-brand-slate/50 flex items-center justify-center gap-1">
-                                    john.cristopher.senai@gmail.com
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- SEÇÃO: PRÉVIA PREÇOS -->
         <section id="planos"
             class="min-h-screen flex items-center py-20 bg-brand-dark text-brand-cream relative overflow-hidden">
@@ -747,7 +740,8 @@
                         </div>
                         <div class="pt-6 mt-6 border-t border-white/10">
                             <a href="price.html"
-                                class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-brand-gold text-white hover:text-brand-dark font-bold px-6 py-3 rounded-xl transition-all text-sm">
+                                class="liquid-hover-button w-full inline-flex items-center justify-center gap-2 text-white font-bold px-6 py-3 text-sm"
+                                data-color1="#607267" data-color2="#A18E62" data-color3="#C5A467">
                                 <span>Ver Detalhes</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
                             </a>
                         </div>
@@ -775,7 +769,8 @@
                         </div>
                         <div class="pt-6 mt-6 border-t border-white/10">
                             <a href="price.html"
-                                class="w-full inline-flex items-center justify-center gap-2 bg-brand-gold text-brand-dark font-bold px-6 py-3 rounded-xl transition-all text-sm hover:bg-white">
+                                class="liquid-hover-button w-full inline-flex items-center justify-center gap-2 text-brand-dark font-bold px-6 py-3 text-sm"
+                                data-color1="#C5A467" data-color2="#D4B77F" data-color3="#E8D4A8">
                                 <span>Ver Planos Pro</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
                             </a>
                         </div>
@@ -804,7 +799,8 @@
                         </div>
                         <div class="pt-6 mt-6 border-t border-white/10">
                             <a href="price.html"
-                                class="w-full inline-flex items-center justify-center gap-2 bg-brand-sage/20 hover:bg-brand-sage text-white hover:text-brand-dark font-bold px-6 py-3 rounded-xl transition-all text-sm">
+                                class="liquid-hover-button w-full inline-flex items-center justify-center gap-2 text-white font-bold px-6 py-3 text-sm"
+                                data-color1="#5E7565" data-color2="#779982" data-color3="#A8C4AD">
                                 <span>Saiba Mais</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
                             </a>
                         </div>
@@ -872,19 +868,32 @@
     </main>
 
     <!-- RODAPÉ -->
-    <footer class="bg-brand-cream border-t border-brand-slate/10 py-12">
-        <div class="container mx-auto px-6 text-center max-w-6xl">
-            <p class="text-brand-slate/60 text-sm">&copy; 2026 Lise. Desenvolvido pelo grupo Bit Bang Theory.</p>
-            <div class="mt-6 flex justify-center space-x-8 text-sm text-brand-slate/50">
-                <a href="#inicio" class="hover:text-brand-gold transition">Início</a>
-                <a href="#problema" class="hover:text-brand-gold transition">O Estudo</a>
-                <a href="#metodo" class="hover:text-brand-gold transition">Etimologia</a>
-                <a href="#desenvolvedores" class="hover:text-brand-gold transition">Equipe</a>
+    <footer class="min-h-[280px] bg-brand-cream border-t border-brand-slate/10 py-16 md:py-20 flex items-center">
+        <div class="container mx-auto px-6 max-w-6xl grid md:grid-cols-2 gap-10 items-center">
+            <div class="text-center md:text-left">
+                <p class="text-brand-slate/60 text-sm">&copy; 2026 Lise. Desenvolvido pelo grupo Bit Bang Theory.</p>
+                <nav aria-label="Links do rodapé"
+                    class="mt-6 flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3 text-sm text-brand-slate/50">
+                    <a href="#inicio" class="hover:text-brand-gold transition">Início</a>
+                    <a href="#problema" class="hover:text-brand-gold transition">O Estudo</a>
+                    <a href="#metodo" class="hover:text-brand-gold transition">Etimologia</a>
+                    <a href="about.html" class="hover:text-brand-gold transition">Sobre Nós</a>
+                    <a href="price.html" class="hover:text-brand-gold transition">Planos</a>
+                </nav>
+            </div>
+            <div class="text-center md:text-right">
+                <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mb-3">Equipe Bit Bang Theory
+                </p>
+                <ul class="space-y-2 text-sm text-brand-slate/70">
+                    <li>Lívia Domingues</li>
+                    <li>Isabelly Ferreira</li>
+                    <li>João Pedro Stadler</li>
+                    <li>John Cristopher</li>
+                </ul>
             </div>
         </div>
     </footer>
 
-    <!-- JS EXTERNO -->
     <script src="script.js"></script>
 </body>
 

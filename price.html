@@ -45,10 +45,14 @@
                 class="text-2xl font-serif font-bold text-white hover:text-brand-gold transition-colors">
                 Lise<span class="text-brand-gold">.</span>
             </a>
-            <a href="index.html"
-                class="text-brand-cream hover:text-brand-gold text-sm font-semibold flex items-center gap-2 transition-colors">
-                <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar para o Início
-            </a>
+            <div class="flex items-center gap-5">
+                <a href="about.html"
+                    class="text-brand-cream hover:text-brand-gold text-sm font-semibold transition-colors">Sobre Nós</a>
+                <a href="index.html"
+                    class="text-brand-cream hover:text-brand-gold text-sm font-semibold flex items-center gap-2 transition-colors">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar para o Início
+                </a>
+            </div>
         </nav>
     </header>
 
@@ -329,8 +333,25 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-brand-dark text-brand-cream/60 py-10 text-center text-sm">
-        <p>&copy; 2026 Lise. Todos os direitos reservados.</p>
+    <footer class="min-h-[280px] bg-brand-dark text-brand-cream/60 py-16 md:py-20 flex items-center">
+        <div class="container mx-auto px-6 max-w-6xl grid md:grid-cols-2 gap-10 items-center text-sm">
+            <div class="text-center md:text-left">
+                <p>&copy; 2026 Lise. Todos os direitos reservados.</p>
+                <nav aria-label="Links do rodapé" class="mt-6 flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3">
+                    <a href="index.html" class="hover:text-brand-gold transition">Início</a>
+                    <a href="about.html" class="hover:text-brand-gold transition">Sobre Nós</a>
+                </nav>
+            </div>
+            <div class="text-center md:text-right">
+                <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mb-3">Equipe Bit Bang Theory</p>
+                <ul class="space-y-2 text-brand-cream/80">
+                    <li>Lívia Domingues</li>
+                    <li>Isabelly Ferreira</li>
+                    <li>João Pedro Stadler</li>
+                    <li>John Cristopher</li>
+                </ul>
+            </div>
+        </div>
     </footer>
 
     <script>
