@@ -2,6 +2,18 @@ html {
     --a11y-font-scale: 1.125;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b,
+.font-bold {
+    font-family: "Bricolage Grotesque", sans-serif;
+}
+
 html [data-a11y-scaled] {
     font-size: calc(var(--a11y-base-font-size) * var(--a11y-local-scale, var(--a11y-font-scale)));
     line-height: calc(
