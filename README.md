@@ -26,6 +26,7 @@ Landing page da plataforma Lise e decodificador interativo para termos biológic
 - ✅ Decodificador de termos morfológicos com prefixos e sufixos
 - ✅ Interface visual agradável com estilo inspirado em biologia e educação
 - ✅ Texto explicativo para apoiar estudantes e professores
+- ✅ Acessibilidade visual: textos ampliáveis até 2x e modo escuro
 
 ## Tecnologias Utilizadas
 

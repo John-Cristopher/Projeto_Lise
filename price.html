@@ -10,6 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="icon" href="./img/android-chrome-512x512.png" type="image/png">
+    <link rel="stylesheet" href="./assets/css/accessibility.css">
 
     <script>
         tailwind.config = {
@@ -46,8 +47,6 @@
                 Lise<span class="text-brand-gold">.</span>
             </a>
             <div class="flex items-center gap-5">
-                <a href="about.html"
-                    class="text-brand-cream hover:text-brand-gold text-sm font-semibold transition-colors">Sobre Nós</a>
                 <a href="index.html"
                     class="text-brand-cream hover:text-brand-gold text-sm font-semibold flex items-center gap-2 transition-colors">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar para o Início
@@ -297,11 +296,11 @@
                                 <td class="py-3 px-4 font-medium text-brand-dark">Relatórios (Básicos / Avançados)</td>
                                 <td class="py-3 px-4 text-center">—</td>
                                 <td class="py-3 px-4 text-center">Apenas Básicos</td>
-                                <td class="py-3 px-4 text-center"><span class="inline-flex items-center gap-1"><i
-                                            data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Avançados</span>
+                                <td class="py-3 px-4 text-center"><span
+                                        class="inline-flex items-center gap-1">Avançados</span>
                                 </td>
-                                <td class="py-3 px-4 text-center"><span class="inline-flex items-center gap-1"><i
-                                            data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Avançados</span>
+                                <td class="py-3 px-4 text-center"><span
+                                        class="inline-flex items-center gap-1">Avançados</span>
                                 </td>
                             </tr>
                             <tr>
@@ -309,11 +308,11 @@
                                 <td class="py-3 px-4 text-center">—</td>
                                 <td class="py-3 px-4 text-center"><i data-lucide="x"
                                         class="w-4 h-4 text-brand-slate/50 inline-block"></i></td>
-                                <td class="py-3 px-4 text-center"><span class="inline-flex items-center gap-1"><i
-                                            data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Exportação</span>
+                                <td class="py-3 px-4 text-center"><span
+                                        class="inline-flex items-center gap-1">Exportação</span>
                                 </td>
-                                <td class="py-3 px-4 text-center"><span class="inline-flex items-center gap-1"><i
-                                            data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Completo</span>
+                                <td class="py-3 px-4 text-center"><span
+                                        class="inline-flex items-center gap-1">Completo</span>
                                 </td>
                             </tr>
                             <tr>
@@ -337,13 +336,15 @@
         <div class="container mx-auto px-6 max-w-6xl grid md:grid-cols-2 gap-10 items-center text-sm">
             <div class="text-center md:text-left">
                 <p>&copy; 2026 Lise. Todos os direitos reservados.</p>
-                <nav aria-label="Links do rodapé" class="mt-6 flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3">
+                <nav aria-label="Links do rodapé"
+                    class="mt-6 flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3">
                     <a href="index.html" class="hover:text-brand-gold transition">Início</a>
                     <a href="about.html" class="hover:text-brand-gold transition">Sobre Nós</a>
                 </nav>
             </div>
             <div class="text-center md:text-right">
-                <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mb-3">Equipe Bit Bang Theory</p>
+                <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mb-3">Equipe Bit Bang Theory
+                </p>
                 <ul class="space-y-2 text-brand-cream/80">
                     <li>Lívia Domingues</li>
                     <li>Isabelly Ferreira</li>
@@ -357,6 +358,7 @@
     <script>
         lucide.createIcons();
     </script>
+    <script src="./assets/js/accessibility.js"></script>
 </body>
 
 </html>
