@@ -11,6 +11,11 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="icon" href="./img/android-chrome-512x512.png" type="image/png">
+    <link rel="preload" href="./assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="./assets/css/fonts.css">
+    <link rel="stylesheet" href="./assets/css/accessibility.css">
+    <link rel="stylesheet" href="./assets/css/design-system.css">
 
     <script>
         tailwind.config = {
@@ -18,16 +23,18 @@
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#4A5D4E',
-                            sage: '#8DAA91',
-                            gold: '#C5A467',
-                            cream: '#F9F7F2',
-                            slate: '#465A65',
+                            dark: '#0F5132',
+                            sage: '#2F9F68',
+                            gold: '#F1873D',
+                            cream: '#FFF8F2',
+                            slate: '#36483E',
                         }
                     },
                     fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Bricolage Grotesque"', 'Arial', 'sans-serif'],
+                        display: ['"Bricolage Grotesque"', 'Arial', 'sans-serif'],
+                        sans: ['"Instrument Sans"', 'Arial', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'Consolas', 'monospace'],
                     }
                 }
             }
@@ -100,7 +107,7 @@
             padding-top: 0.7rem;
             padding-bottom: 0.7rem;
             box-shadow: 0 16px 35px -18px rgba(34, 48, 39, 0.65), 0 5px 14px -10px rgba(0, 0, 0, 0.35);
-            background-color: rgba(74, 93, 78, 0.95);
+            background-color: rgba(15, 81, 50, 0.96);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -132,6 +139,284 @@
         #jornada .jornada-bloco {
             transform-style: preserve-3d;
             will-change: transform, opacity;
+        }
+
+        #jornada .jornada-bloco::after {
+            content: '';
+            position: absolute;
+            top: -1.5rem;
+            right: -1rem;
+            bottom: -1.5rem;
+            left: -1.5rem;
+            z-index: -1;
+            border: 1px solid rgba(47, 159, 104, 0);
+            border-radius: 1.75rem;
+            background: rgba(249, 247, 242, 0);
+            box-shadow: 0 24px 60px rgba(34, 48, 39, 0);
+            transition: border-color 300ms ease, background-color 300ms ease, box-shadow 300ms ease;
+        }
+
+        #jornada .jornada-bloco.is-active::after {
+            border-color: rgba(47, 159, 104, 0.22);
+            background: rgba(249, 247, 242, 0.72);
+            box-shadow: 0 24px 60px rgba(34, 48, 39, 0.08);
+        }
+
+        .jornada-palavra-fonte {
+            position: relative;
+            display: inline-block;
+            color: #0F5132;
+            font-weight: 700;
+            white-space: nowrap;
+            will-change: transform, opacity, filter;
+        }
+
+        .jornada-palavra-fonte::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -0.12em;
+            left: 0;
+            height: 0.18em;
+            border-radius: 999px;
+            background: rgba(241, 135, 61, 0.42);
+            transform: scaleX(0.35);
+            transform-origin: left center;
+            transition: transform 300ms ease, background-color 300ms ease;
+        }
+
+        .jornada-bloco.is-active .jornada-palavra-fonte::after {
+            background: rgba(241, 135, 61, 0.72);
+            transform: scaleX(1);
+        }
+
+        .jornada-cena {
+            position: relative;
+            isolation: isolate;
+        }
+
+        #lise-3d-jornada {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        #texto-circular-jornada {
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .jornada-rotas {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            pointer-events: none;
+        }
+
+        .jornada-rota {
+            fill: none;
+            stroke: rgba(47, 159, 104, 0.36);
+            stroke-width: 1.5;
+            stroke-dasharray: 7 10;
+            vector-effect: non-scaling-stroke;
+            opacity: 0;
+        }
+
+        .jornada-termo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 3;
+            padding: 0.65rem 1rem;
+            border: 1px solid rgba(15, 81, 50, 0.16);
+            border-radius: 9999px;
+            background: rgba(249, 247, 242, 0.96);
+            box-shadow: 0 12px 30px rgba(34, 48, 39, 0.14);
+            color: #0F5132;
+            font-family: "Instrument Sans", Arial, sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        .jornada-nucleo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 2;
+            display: flex;
+            width: 8.5rem;
+            height: 8.5rem;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(241, 135, 61, 0.58);
+            border-radius: 9999px;
+            background: radial-gradient(circle, rgba(255, 248, 242, 0.96) 0%, rgba(255, 248, 242, 0.82) 58%, rgba(47, 159, 104, 0.12) 100%);
+            box-shadow: 0 0 0 1rem rgba(47, 159, 104, 0.05), 0 18px 55px rgba(15, 81, 50, 0.14);
+            color: #0F5132;
+            font-family: "Instrument Sans", Arial, sans-serif;
+            font-size: 0.66rem;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            line-height: 1.35;
+            text-align: center;
+            transform: translate(-50%, -50%) scale(0.7);
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        .jornada-mobile-sintese {
+            position: relative;
+            overflow: hidden;
+            margin-top: 3rem;
+            padding: 1.25rem;
+            border: 1px solid rgba(47, 159, 104, 0.22);
+            border-radius: 1.5rem;
+            background: linear-gradient(135deg, rgba(249, 247, 242, 0.95), rgba(231, 239, 232, 0.72));
+            box-shadow: 0 18px 45px rgba(34, 48, 39, 0.08);
+        }
+
+        .jornada-mobile-orbita {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .jornada-mobile-palavras {
+            display: flex;
+            flex: 1;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .jornada-mobile-palavras span {
+            padding: 0.42rem 0.65rem;
+            border: 1px solid rgba(47, 159, 104, 0.24);
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.74);
+            color: #0F5132;
+            font-size: 0.63rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .jornada-mobile-nucleo {
+            position: relative;
+            display: grid;
+            width: 5.25rem;
+            height: 5.25rem;
+            flex: 0 0 auto;
+            place-items: center;
+            border: 1px solid rgba(241, 135, 61, 0.5);
+            border-radius: 9999px;
+            background: #0F5132;
+            box-shadow: 0 0 0 0.7rem rgba(47, 159, 104, 0.1);
+            color: #FFF8F2;
+            font-size: 0.55rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-align: center;
+            animation: jornada-mobile-pulso 3.2s ease-in-out infinite;
+        }
+
+        @keyframes jornada-mobile-pulso {
+            50% {
+                box-shadow: 0 0 0 1.05rem rgba(47, 159, 104, 0.04);
+                transform: scale(1.03);
+            }
+        }
+
+        @media (max-width: 767px) {
+            #jornada .jornada-bloco {
+                opacity: 0;
+                transform: translate3d(-2.75rem, 1rem, 0);
+                transition: opacity 650ms ease, transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+            }
+
+            #jornada .jornada-bloco.is-mobile-visible {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        html[data-theme="dark"] #jornada .jornada-bloco.is-active::after {
+            border-color: rgba(183, 210, 187, 0.25);
+            background: rgba(38, 55, 43, 0.92);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        html[data-theme="dark"] .jornada-palavra-fonte {
+            color: #EDF3EF;
+        }
+
+        html[data-theme="dark"] .jornada-mobile-sintese {
+            border-color: rgba(183, 210, 187, 0.2);
+            background: linear-gradient(135deg, rgba(38, 55, 43, 0.96), rgba(24, 33, 28, 0.92));
+        }
+
+        html[data-theme="dark"] .jornada-mobile-palavras span {
+            border-color: rgba(183, 210, 187, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            color: #EDF3EF;
+        }
+
+        .termos-carrossel {
+            position: relative;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+        }
+
+        .termos-carrossel__trilho {
+            display: flex;
+            width: max-content;
+            animation: termos-deslizar 42s linear infinite;
+        }
+
+        .termos-carrossel__linha--reversa .termos-carrossel__trilho {
+            animation-direction: reverse;
+            animation-duration: 48s;
+        }
+
+        .termos-carrossel:hover .termos-carrossel__trilho {
+            animation-play-state: paused;
+        }
+
+        .termos-carrossel__grupo {
+            display: flex;
+            flex: none;
+            align-items: center;
+            gap: 1rem;
+            padding-right: 1rem;
+        }
+
+        @keyframes termos-deslizar {
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .termos-carrossel__trilho {
+                animation-play-state: paused;
+            }
+
+            .jornada-mobile-nucleo {
+                animation: none;
+            }
+
+            #jornada .jornada-bloco {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
         }
     </style>
 </head>
@@ -182,7 +467,7 @@
                     </a>
                     <a href="price.html"
                         class="liquid-hover-button text-brand-dark px-5 py-2 text-sm font-bold"
-                        data-color1="#C5A467" data-color2="#D4B77F" data-color3="#E8D4A8">
+                        data-color1="#F1873D" data-color2="#F59E5E" data-color3="#FFD2B2">
                         Ver Planos
                     </a>
                 </div>
@@ -209,7 +494,7 @@
                 </a>
                 <a href="price.html"
                     class="liquid-hover-button mt-2 w-full text-center text-brand-dark py-3 font-bold text-sm"
-                    data-color1="#C5A467" data-color2="#D4B77F" data-color3="#E8D4A8">
+                    data-color1="#F1873D" data-color2="#F59E5E" data-color3="#FFD2B2">
                     Planos e Preços
                 </a>
             </div>
@@ -226,31 +511,33 @@
                     <div class="md:col-span-7 space-y-8">
                         <span
                             class="inline-flex items-center gap-2 bg-brand-sage/10 text-brand-dark px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
-                            <span class="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span> Projeto de Conclusão
-                            de Curso
+                            <span class="w-2 h-2 rounded-full bg-brand-sage"></span> Aprendizagem ativa em biologia
                         </span>
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-brand-dark leading-tight">
-                            Viaje pela escala <br class="hidden lg:inline"><span class="italic text-brand-gold">da
-                                vida</span>.
+                        <h1 class="type-display-xl text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-brand-dark leading-tight">
+                            Entenda a biologia pela <span class="italic text-brand-gold">lógica das palavras</span>.
                         </h1>
                         <p class="text-lg text-brand-slate/80 leading-relaxed max-w-xl">
-                            Esqueça a memorização forçada e os livros estáticos. O <strong
-                                class="text-brand-dark">Lise</strong> mapeia as conexões biológicas de forma interativa,
-                            ajudando estudantes e professores a decodificarem a biologia através da etimologia e da
-                            morfologia das palavras.
+                            A <strong class="text-brand-dark">Lise</strong> transforma termos complexos em partes que
+                            fazem sentido. Estudantes aprendem com etimologia, flashcards e desafios; professores
+                            acompanham a evolução da turma em um só ambiente.
                         </p>
                         <div class="flex flex-wrap gap-4 pt-2">
                             <a href="#metodo"
                                 class="liquid-hover-button text-white px-8 py-4 font-semibold inline-flex items-center gap-2"
-                                data-color1="#4A5D4E" data-color2="#5D7462" data-color3="#8DAA91">
-                                Testar decodificador <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                data-color1="#F1873D" data-color2="#F59E5E" data-color3="#FFD2B2">
+                                Experimentar o decodificador
                             </a>
                             <a href="#problema"
                                 class="liquid-hover-button text-brand-dark px-8 py-4 font-semibold"
-                                data-color1="#F9F7F2" data-color2="#E7EFE8" data-color3="#C6D8CA">
-                                Entender o Método
+                                data-color1="#FFF8F2" data-color2="#FBE9DC" data-color3="#F6C7A6">
+                                Ver como funciona
                             </a>
                         </div>
+                        <ul class="hero-proof" aria-label="Recursos principais da plataforma">
+                            <li><i data-lucide="split" aria-hidden="true"></i><span>Decodifique<br><strong>radicais</strong></span></li>
+                            <li><i data-lucide="layers-3" aria-hidden="true"></i><span>Pratique com<br><strong>flashcards</strong></span></li>
+                            <li><i data-lucide="chart-no-axes-combined" aria-hidden="true"></i><span>Acompanhe a<br><strong>aprendizagem</strong></span></li>
+                        </ul>
                     </div>
 
                     <div class="md:col-span-5 relative isolate">
@@ -368,10 +655,10 @@
                 <div class="text-center max-w-3xl mx-auto mb-16">
                     <p class="text-brand-gold uppercase tracking-wider text-xs font-semibold mb-2">Fundamentação
                         Científica</p>
-                    <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">Rompa a barreira da "decoreba"</h2>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">Pare de decorar. Comece a decodificar.</h2>
                     <p class="text-brand-cream/80 text-lg leading-relaxed">
-                        A memorização mecânica de termos biológicos gera desinteresse e dificulta a evolução dos alunos,
-                        forçando professores a revisões repetitivas.
+                        Quando uma palavra parece indecifrável, o conteúdo também parece distante. A Lise revela a
+                        estrutura dos termos para transformar estranhamento em compreensão.
                     </p>
                 </div>
 
@@ -387,10 +674,9 @@
                             </div>
                         </div>
                         <p class="text-brand-cream/80 text-sm leading-relaxed">
-                            De acordo com a pesquisa desenvolvida pela Universidade Federal do Rio Grande do Sul, a
-                            divisão de termos biológicos complexos em seus componentes morfológicos fundamentais reduz
-                            drasticamente a estranheza das palavras, permitindo que os estudantes deduzam significados
-                            de forma <strong>autônoma</strong>.
+                            A abordagem etimológica divide termos biológicos em componentes morfológicos e ajuda o aluno
+                            a reconhecer padrões. Assim, ele ganha repertório para formular hipóteses sobre novos
+                            significados com mais <strong>autonomia</strong>.
                         </p>
                         <div
                             class="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-brand-sage">
@@ -422,13 +708,79 @@
             </div>
         </section>
 
+        <!-- CARROSSEL: TERMOS BIOLÓGICOS -->
+        <section class="bg-brand-dark text-brand-cream py-12 md:py-16 overflow-hidden"
+            aria-labelledby="termos-biologicos-titulo">
+            <div class="container mx-auto max-w-6xl px-6 mb-8 md:mb-10 text-center">
+                <p class="text-brand-gold uppercase tracking-wider text-xs font-semibold mb-2">Um universo de conexões</p>
+                <h2 id="termos-biologicos-titulo" class="text-2xl md:text-3xl font-serif font-bold">
+                    Toda palavra guarda uma descoberta
+                </h2>
+                <p class="text-brand-cream/70 text-sm mt-3">Explore alguns termos que ficam mais fáceis quando entendemos suas partes.</p>
+                <p class="sr-only">
+                    Termos em destaque: citologia, fotossíntese, hematologia, mitocôndria, glicólise,
+                    biodiversidade, homeostase, ecossistema, neurônio, biomolécula, microbiota, anatomia e genética.
+                </p>
+            </div>
+
+            <div class="termos-carrossel__linha mb-4" aria-hidden="true">
+                <div class="termos-carrossel__trilho">
+                    <div class="termos-carrossel__grupo">
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Citologia</span><span class="text-xs text-brand-sage">estudo das células</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Fotossíntese</span><span class="text-xs text-brand-sage">síntese pela luz</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Hematologia</span><span class="text-xs text-brand-sage">estudo do sangue</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Mitocôndria</span><span class="text-xs text-brand-sage">estrutura celular</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Glicólise</span><span class="text-xs text-brand-sage">quebra da glicose</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Biodiversidade</span><span class="text-xs text-brand-sage">variedade da vida</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Homeostase</span><span class="text-xs text-brand-sage">equilíbrio interno</span></span>
+                    </div>
+                    <div class="termos-carrossel__grupo">
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Citologia</span><span class="text-xs text-brand-sage">estudo das células</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Fotossíntese</span><span class="text-xs text-brand-sage">síntese pela luz</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Hematologia</span><span class="text-xs text-brand-sage">estudo do sangue</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Mitocôndria</span><span class="text-xs text-brand-sage">estrutura celular</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Glicólise</span><span class="text-xs text-brand-sage">quebra da glicose</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Biodiversidade</span><span class="text-xs text-brand-sage">variedade da vida</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Homeostase</span><span class="text-xs text-brand-sage">equilíbrio interno</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="termos-carrossel__linha termos-carrossel__linha--reversa" aria-hidden="true">
+                <div class="termos-carrossel__trilho">
+                    <div class="termos-carrossel__grupo">
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Ecossistema</span><span class="text-xs text-brand-sage">vida em relação</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Neurônio</span><span class="text-xs text-brand-sage">célula nervosa</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Biomolécula</span><span class="text-xs text-brand-sage">molécula da vida</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Microbiota</span><span class="text-xs text-brand-sage">comunidade de microrganismos</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Anatomia</span><span class="text-xs text-brand-sage">estrutura dos organismos</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Genética</span><span class="text-xs text-brand-sage">herança biológica</span></span>
+                    </div>
+                    <div class="termos-carrossel__grupo">
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Ecossistema</span><span class="text-xs text-brand-sage">vida em relação</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Neurônio</span><span class="text-xs text-brand-sage">célula nervosa</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Biomolécula</span><span class="text-xs text-brand-sage">molécula da vida</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Microbiota</span><span class="text-xs text-brand-sage">comunidade de microrganismos</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Anatomia</span><span class="text-xs text-brand-sage">estrutura dos organismos</span></span>
+                        <span class="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3"><span class="text-brand-gold font-serif font-bold">Genética</span><span class="text-xs text-brand-sage">herança biológica</span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- SEÇÃO: A JORNADA (SCROLL COM OBJETO 3D FIXO) -->
         <section id="jornada" class="bg-white relative">
             <div class="container mx-auto max-w-6xl px-6 py-24 md:py-32">
+                <div class="jornada-intro">
+                    <p class="text-brand-gold uppercase tracking-wider text-xs font-semibold">Do termo ao entendimento</p>
+                    <h2 class="font-serif font-bold text-brand-dark">Uma jornada curta, visual e conectada.</h2>
+                    <p class="text-brand-slate/80">A Lise organiza o aprendizado em três movimentos: compreender as
+                        partes, testar combinações e consolidar o conhecimento com prática.</p>
+                </div>
                 <div class="grid md:grid-cols-2 gap-16">
 
                     <!-- Coluna Esquerda: os 3 blocos que "passam" pelo objeto -->
-                    <div class="space-y-[26vh] md:space-y-[32vh] pb-[10vh] md:pb-[16vh]">
+                    <div class="space-y-[26vh] md:space-y-[32vh] pb-0 md:pb-[16vh]">
 
                         <div class="jornada-bloco max-w-md relative">
                             <span
@@ -440,8 +792,10 @@
                                     palavra</h3>
                                 <p class="text-brand-slate/80 leading-relaxed">
                                     Todo termo biológico complexo é, na verdade, a soma de partes menores. O Lise
-                                    separa cada palavra em seus radicais gregos e latinos, mostrando exatamente onde
-                                    mora o significado — sem depender da decoreba.
+                                    separa cada palavra em seus <span class="jornada-palavra-fonte"
+                                        data-jornada-fonte="radicais">radicais</span> gregos e latinos, mostrando
+                                    exatamente onde mora o <span class="jornada-palavra-fonte"
+                                        data-jornada-fonte="significado">significado</span> — sem depender da decoreba.
                                 </p>
                             </div>
                         </div>
@@ -455,9 +809,11 @@
                                 <h3 class="text-3xl md:text-4xl font-serif font-bold text-brand-dark">Construa o
                                     termo você mesmo</h3>
                                 <p class="text-brand-slate/80 leading-relaxed">
-                                    No simulador interativo, o aluno combina prefixos e sufixos livremente e observa,
-                                    em tempo real, qual termo se forma e o que ele significa — aprendendo a lógica em
-                                    vez de memorizar centenas de definições soltas.
+                                    No simulador interativo, o aluno combina <span class="jornada-palavra-fonte"
+                                        data-jornada-fonte="prefixos">prefixos</span> e <span
+                                        class="jornada-palavra-fonte" data-jornada-fonte="sufixos">sufixos</span>
+                                    livremente e observa, em tempo real, qual termo se forma e o que ele significa —
+                                    aprendendo a lógica em vez de memorizar centenas de definições soltas.
                                 </p>
                             </div>
                         </div>
@@ -471,34 +827,73 @@
                                 <h3 class="text-3xl md:text-4xl font-serif font-bold text-brand-dark">Domine com a
                                     prática</h3>
                                 <p class="text-brand-slate/80 leading-relaxed">
-                                    Flashcards e quizzes reforçam o que foi decodificado, enquanto professores
-                                    acompanham a evolução da turma em relatórios simples — fechando o ciclo entre
-                                    entender e reter.
+                                    <span class="jornada-palavra-fonte"
+                                        data-jornada-fonte="flashcards">Flashcards</span> e <span
+                                        class="jornada-palavra-fonte" data-jornada-fonte="quizzes">quizzes</span>
+                                    reforçam o que foi decodificado, enquanto professores acompanham a evolução da
+                                    turma em relatórios simples — fechando o ciclo entre entender e reter.
                                 </p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Coluna Direita: objeto 3D e texto circular fixos durante a rolagem -->
-                    <div class="hidden md:block relative">
-                        <div class="sticky top-32 h-[60vh] flex items-center justify-center">
-                            <div id="lise-3d-jornada" class="w-full h-full" aria-hidden="true"></div>
-                            <svg id="texto-circular-jornada"
-                                class="absolute inset-0 w-full h-full pointer-events-none origin-center"
-                                viewBox="0 0 500 500" aria-hidden="true">
-                                <defs>
-                                    <path id="trajeto-texto-jornada" d="M 250 40 A 210 210 0 1 1 249.99 40" />
-                                </defs>
-                                <text class="fill-brand-dark/70 font-sans text-[13px] font-semibold tracking-[0.24em]">
-                                    <textPath href="#trajeto-texto-jornada">
-                                        DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE
-                                        • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA
-                                    </textPath>
-                                </text>
-                            </svg>
+                    <div class="jornada-visual hidden md:block">
+                        <div class="jornada-visual__stage flex items-center justify-center">
+                            <div id="jornada-cena" class="jornada-cena w-full h-full" aria-hidden="true">
+                                <div id="lise-3d-jornada" class="w-full h-full"></div>
+                                <svg class="jornada-rotas" viewBox="0 0 500 500" preserveAspectRatio="none">
+                                    <path id="rota-radicais" class="jornada-rota"
+                                        d="M -60 250 C 40 250, 90 145, 210 155 C 260 160, 260 210, 250 230" />
+                                    <path id="rota-significado" class="jornada-rota"
+                                        d="M -70 285 C 55 320, 95 215, 205 215 C 245 215, 255 245, 250 265" />
+                                    <path id="rota-prefixos" class="jornada-rota"
+                                        d="M -70 235 C 65 175, 95 340, 225 345 C 275 345, 280 300, 265 275" />
+                                    <path id="rota-sufixos" class="jornada-rota"
+                                        d="M -70 285 C 55 390, 140 365, 230 315 C 270 292, 275 265, 260 245" />
+                                    <path id="rota-flashcards" class="jornada-rota"
+                                        d="M -65 245 C 45 130, 145 130, 225 205 C 255 232, 260 245, 250 250" />
+                                    <path id="rota-quizzes" class="jornada-rota"
+                                        d="M -70 300 C 65 410, 165 355, 230 295 C 260 268, 265 250, 250 245" />
+                                </svg>
+                                <svg id="texto-circular-jornada"
+                                    class="absolute inset-0 w-full h-full pointer-events-none origin-center"
+                                    viewBox="0 0 500 500">
+                                    <defs>
+                                        <path id="trajeto-texto-jornada" d="M 250 40 A 210 210 0 1 1 249.99 40" />
+                                    </defs>
+                                    <text class="fill-brand-dark/70 font-sans text-[13px] font-semibold tracking-[0.24em]">
+                                        <textPath href="#trajeto-texto-jornada">
+                                            DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA • DECODIFIQUE
+                                            • CONECTE • APRENDA • DECODIFIQUE • CONECTE • APRENDA
+                                        </textPath>
+                                    </text>
+                                </svg>
+                                <span class="jornada-termo" data-jornada-termo="radicais">RADICAIS</span>
+                                <span class="jornada-termo" data-jornada-termo="significado">SIGNIFICADO</span>
+                                <span class="jornada-termo" data-jornada-termo="prefixos">PREFIXOS</span>
+                                <span class="jornada-termo" data-jornada-termo="sufixos">SUFIXOS</span>
+                                <span class="jornada-termo" data-jornada-termo="flashcards">FLASHCARDS</span>
+                                <span class="jornada-termo" data-jornada-termo="quizzes">QUIZZES</span>
+                                <span id="jornada-nucleo" class="jornada-nucleo">APRENDI<br>ZADO</span>
+                            </div>
                         </div>
                     </div>
 
+                </div>
+
+                <div class="jornada-mobile-sintese md:hidden" aria-label="Os conceitos se unem para formar o aprendizado">
+                    <p class="mb-4 text-xs font-bold uppercase tracking-[0.16em] text-brand-gold">O aprendizado ganha forma</p>
+                    <div class="jornada-mobile-orbita">
+                        <div class="jornada-mobile-palavras" aria-hidden="true">
+                            <span>Radicais</span>
+                            <span>Significado</span>
+                            <span>Prefixos</span>
+                            <span>Sufixos</span>
+                            <span>Prática</span>
+                        </div>
+                        <div class="jornada-mobile-nucleo" aria-hidden="true">APRENDI<br>ZADO</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -629,7 +1024,7 @@
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-12">
-                    <div class="space-y-6">
+                    <div class="audience-card audience-card--student space-y-6">
                         <div
                             class="w-12 h-12 rounded-xl bg-brand-dark text-brand-cream flex items-center justify-center shadow-md">
                             <i data-lucide="book-open" class="w-6 h-6 text-white"></i>
@@ -654,7 +1049,7 @@
                         </ul>
                     </div>
 
-                    <div class="space-y-6">
+                    <div class="audience-card audience-card--teacher space-y-6">
                         <div
                             class="w-12 h-12 rounded-xl bg-brand-sage text-brand-cream flex items-center justify-center shadow-md">
                             <i data-lucide="bar-chart-3" class="w-6 h-6 text-white"></i>
@@ -741,8 +1136,8 @@
                         <div class="pt-6 mt-6 border-t border-white/10">
                             <a href="price.html"
                                 class="liquid-hover-button w-full inline-flex items-center justify-center gap-2 text-white font-bold px-6 py-3 text-sm"
-                                data-color1="#607267" data-color2="#A18E62" data-color3="#C5A467">
-                                <span>Ver Detalhes</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                data-color1="#2F9F68" data-color2="#49B77E" data-color3="#8DD9AD">
+                                <span>Ver detalhes</span>
                             </a>
                         </div>
                     </div>
@@ -770,8 +1165,8 @@
                         <div class="pt-6 mt-6 border-t border-white/10">
                             <a href="price.html"
                                 class="liquid-hover-button w-full inline-flex items-center justify-center gap-2 text-brand-dark font-bold px-6 py-3 text-sm"
-                                data-color1="#C5A467" data-color2="#D4B77F" data-color3="#E8D4A8">
-                                <span>Ver Planos Pro</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                data-color1="#F1873D" data-color2="#F59E5E" data-color3="#FFD2B2">
+                                <span>Ver plano Pro</span>
                             </a>
                         </div>
                     </div>
@@ -800,8 +1195,8 @@
                         <div class="pt-6 mt-6 border-t border-white/10">
                             <a href="price.html"
                                 class="liquid-hover-button w-full inline-flex items-center justify-center gap-2 text-white font-bold px-6 py-3 text-sm"
-                                data-color1="#5E7565" data-color2="#779982" data-color3="#A8C4AD">
-                                <span>Saiba Mais</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                data-color1="#2F9F68" data-color2="#49B77E" data-color3="#8DD9AD">
+                                <span>Saiba mais</span>
                             </a>
                         </div>
                     </div>
@@ -815,51 +1210,50 @@
         <!-- SEÇÃO: FAQ -->
         <section id="faq" class="py-20 bg-white">
             <div class="container mx-auto max-w-4xl px-6">
-                <div class="text-center mb-12">
+                <div class="faq-heading text-center mb-12">
                     <p class="text-brand-gold uppercase tracking-wider text-xs font-semibold mb-2">FAQ</p>
-                    <h2 class="text-3xl font-serif font-bold text-brand-dark">Perguntas Frequentes</h2>
-                    <p class="text-brand-slate/70 mt-4">Tudo o que você precisa saber sobre o método e os planos do
-                        Lise.</p>
+                    <h2 class="text-3xl font-serif font-bold text-brand-dark">Dúvidas antes de começar?</h2>
+                    <p class="text-brand-slate/70 mt-4">Entenda o método, os públicos e as possibilidades da plataforma.</p>
                 </div>
 
-                <div class="space-y-4">
-                    <!-- Dúvida 1 -->
-                    <div class="border border-brand-slate/10 rounded-2xl p-6 hover:border-brand-sage transition-colors">
-                        <h4 class="font-bold text-brand-dark flex justify-between items-center">
-                            Como funciona o método de decodificação etimológica do Lise?
-                            <i data-lucide="help-circle" class="w-5 h-5 text-brand-gold"></i>
-                        </h4>
-                        <p class="text-sm text-brand-slate/80 mt-3">
-                            Em vez de memorizar termos biológicos inteiros, o Lise ensina você a identificar raízes
-                            gregas e latinas (prefixos e sufixos). Compreendendo cerca de 20 radicais principais, é
-                            possível deduzir mais de 500 termos sem precisar decorá-los individualmente.
-                        </p>
-                    </div>
+                <div class="faq-list">
+                    <details open>
+                        <summary>Como funciona a decodificação etimológica?</summary>
+                        <p>A Lise separa o termo em radicais, prefixos e sufixos de origem grega ou latina. Ao compreender
+                            o papel de cada parte, o aluno deixa de enxergar uma palavra isolada e passa a reconhecer uma
+                            estrutura que pode reaparecer em outros conceitos.</p>
+                    </details>
+                    <details>
+                        <summary>A plataforma é somente para estudantes?</summary>
+                        <p>Não. Estudantes usam trilhas, flashcards, quizzes e jogos para aprender. Professores organizam
+                            turmas, criam atividades e acompanham o desempenho para orientar revisões com mais precisão.</p>
+                    </details>
+                    <details>
+                        <summary>Posso experimentar antes de escolher um plano?</summary>
+                        <p>Sim. O simulador desta página permite combinar prefixos e sufixos agora mesmo. A página de
+                            planos também apresenta as opções para estudantes, professores e instituições.</p>
+                    </details>
+                    <details>
+                        <summary>Qual é a base pedagógica da proposta?</summary>
+                        <p>A proposta aproxima morfologia, etimologia e aprendizagem ativa. O aluno investiga a formação
+                            das palavras, testa hipóteses e pratica o conteúdo em diferentes formatos, em vez de depender
+                            apenas da memorização de definições.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
 
-                    <!-- Dúvida 2 -->
-                    <div class="border border-brand-slate/10 rounded-2xl p-6 hover:border-brand-sage transition-colors">
-                        <h4 class="font-bold text-brand-dark flex justify-between items-center">
-                            Qual a diferença entre o plano Gratuito e o Professor Pro?
-                            <i data-lucide="help-circle" class="w-5 h-5 text-brand-gold"></i>
-                        </h4>
-                        <p class="text-sm text-brand-slate/80 mt-3">
-                            Alunos usam o Lise gratuitamente para acessar flashcards e jogos. Professores podem iniciar
-                            com 1 turma grátis (até 20 alunos) ou assinar o plano Pro (R$ 19,90/mês) para gerenciar até
-                            10 turmas (400 alunos) com relatórios avançados e exportação de dados.
-                        </p>
+        <section class="final-cta" aria-labelledby="final-cta-title">
+            <div class="container mx-auto max-w-6xl px-6">
+                <div class="final-cta__panel">
+                    <div>
+                        <p class="text-brand-gold uppercase tracking-wider text-xs font-semibold">Comece pela curiosidade</p>
+                        <h2 id="final-cta-title" class="font-serif font-bold">Uma palavra difícil pode ser o início de uma descoberta.</h2>
+                        <p>Experimente o método na prática ou conheça o ambiente ideal para sua jornada.</p>
                     </div>
-
-                    <!-- Dúvida 3 -->
-                    <div class="border border-brand-slate/10 rounded-2xl p-6 hover:border-brand-sage transition-colors">
-                        <h4 class="font-bold text-brand-dark flex justify-between items-center">
-                            O Lise possui fundamentação científica?
-                            <i data-lucide="help-circle" class="w-5 h-5 text-brand-gold"></i>
-                        </h4>
-                        <p class="text-sm text-brand-slate/80 mt-3">
-                            Sim! O método baseia-se em estudos sobre a morfologia das palavras (como pesquisas
-                            publicadas pela UFRGS), mostrando que a divisão em componentes morfológicos desenvolve
-                            autonomia no aprendizado e reduz a rejeição à linguagem científica.
-                        </p>
+                    <div class="final-cta__actions">
+                        <a href="#metodo">Abrir decodificador</a>
+                        <a href="price.html">Conhecer planos</a>
                     </div>
                 </div>
             </div>
@@ -868,33 +1262,31 @@
     </main>
 
     <!-- RODAPÉ -->
-    <footer class="min-h-[280px] bg-brand-cream border-t border-brand-slate/10 py-16 md:py-20 flex items-center">
-        <div class="container mx-auto px-6 max-w-6xl grid md:grid-cols-2 gap-10 items-center">
-            <div class="text-center md:text-left">
-                <p class="text-brand-slate/60 text-sm">&copy; 2026 Lise. Desenvolvido pelo grupo Bit Bang Theory.</p>
-                <nav aria-label="Links do rodapé"
-                    class="mt-6 flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3 text-sm text-brand-slate/50">
+    <footer class="bg-brand-cream border-t border-brand-slate/10 py-14 md:py-16">
+        <div class="container mx-auto px-6 max-w-6xl footer-grid">
+            <div>
+                <a href="#inicio" class="footer-brand" aria-label="Lise, voltar ao início">Lise<span>.</span></a>
+                <p class="footer-tagline">Biologia para entender, conectar e lembrar.</p>
+                <p class="text-brand-slate/60 text-sm">&copy; 2026 Lise. Um projeto do grupo Bit Bang Theory.</p>
+            </div>
+            <div>
+                <p class="footer-label">Explore</p>
+                <nav aria-label="Links do rodapé" class="footer-links">
                     <a href="#inicio" class="hover:text-brand-gold transition">Início</a>
-                    <a href="#problema" class="hover:text-brand-gold transition">O Estudo</a>
-                    <a href="#metodo" class="hover:text-brand-gold transition">Etimologia</a>
+                    <a href="#problema" class="hover:text-brand-gold transition">O método</a>
+                    <a href="#metodo" class="hover:text-brand-gold transition">Decodificador</a>
                     <a href="about.html" class="hover:text-brand-gold transition">Sobre Nós</a>
                     <a href="price.html" class="hover:text-brand-gold transition">Planos</a>
                 </nav>
             </div>
-            <div class="text-center md:text-right">
-                <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mb-3">Equipe Bit Bang Theory
-                </p>
-                <ul class="space-y-2 text-sm text-brand-slate/70">
-                    <li>Lívia Domingues</li>
-                    <li>Isabelly Ferreira</li>
-                    <li>João Pedro Stadler</li>
-                    <li>John Cristopher</li>
-                </ul>
-            </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/accessibility.js"></script>
 </body>
 
 </html>

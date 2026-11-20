@@ -10,6 +10,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="icon" href="./img/android-chrome-512x512.png" type="image/png">
+    <link rel="preload" href="./assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="./assets/css/fonts.css">
+    <link rel="stylesheet" href="./assets/css/accessibility.css">
+    <link rel="stylesheet" href="./assets/css/design-system.css">
 
     <script>
         tailwind.config = {
@@ -17,16 +22,18 @@
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#4A5D4E',
-                            sage: '#8DAA91',
-                            gold: '#C5A467',
-                            cream: '#F9F7F2',
-                            slate: '#465A65',
+                            dark: '#0F5132',
+                            sage: '#2F9F68',
+                            gold: '#F1873D',
+                            cream: '#FFF8F2',
+                            slate: '#36483E',
                         }
                     },
                     fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Bricolage Grotesque"', 'Arial', 'sans-serif'],
+                        display: ['"Bricolage Grotesque"', 'Arial', 'sans-serif'],
+                        sans: ['"Instrument Sans"', 'Arial', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'Consolas', 'monospace'],
                     }
                 }
             }
@@ -34,33 +41,30 @@
     </script>
 </head>
 
-<body
-    class="bg-brand-cream text-brand-slate font-sans antialiased selection:bg-brand-sage/30 selection:text-brand-dark">
+<body class="page-pricing bg-brand-cream text-brand-slate font-sans antialiased selection:bg-brand-sage/30 selection:text-brand-dark">
 
     <!-- HEADER -->
-    <header class="fixed w-full top-0 z-50 py-4 px-4 md:px-6">
+    <header class="subpage-header fixed w-full top-0 z-50 py-4 px-4 md:px-6">
         <nav
-            class="container mx-auto flex justify-between items-center bg-brand-dark/90 backdrop-blur-md py-3 px-6 rounded-2xl shadow-xl border border-white/10">
+            class="subpage-nav container mx-auto flex justify-between items-center bg-brand-dark/90 backdrop-blur-md py-3 px-6 rounded-2xl shadow-xl border border-white/10">
             <a href="index.html"
                 class="text-2xl font-serif font-bold text-white hover:text-brand-gold transition-colors">
                 Lise<span class="text-brand-gold">.</span>
             </a>
             <div class="flex items-center gap-5">
-                <a href="about.html"
-                    class="text-brand-cream hover:text-brand-gold text-sm font-semibold transition-colors">Sobre Nós</a>
                 <a href="index.html"
                     class="text-brand-cream hover:text-brand-gold text-sm font-semibold flex items-center gap-2 transition-colors">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar para o Início
+                    Voltar ao início
                 </a>
             </div>
         </nav>
     </header>
 
-    <main class="pt-32 pb-20 px-6">
+    <main class="pricing-main subpage-main pt-32 pb-20 px-6">
         <div class="container mx-auto max-w-7xl">
 
             <!-- Título da Página -->
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <div class="pricing-hero text-center max-w-3xl mx-auto mb-16 space-y-4">
                 <span
                     class="inline-block bg-brand-sage/10 text-brand-dark px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
                     Tabela Comparativa de Planos
@@ -74,11 +78,11 @@
             </div>
 
             <!-- CARDS DE PREÇOS (DESTAQUE) -->
-            <div class="grid md:grid-cols-4 gap-6 mb-20">
+            <div class="pricing-grid grid md:grid-cols-4 gap-6 mb-20">
 
                 <!-- Aluno Free -->
                 <div
-                    class="bg-white rounded-3xl p-6 border border-brand-slate/10 shadow-lg flex flex-col justify-between">
+                    class="pricing-card bg-white rounded-3xl p-6 border border-brand-slate/10 shadow-lg flex flex-col justify-between">
                     <div>
                         <span class="text-xs font-bold text-brand-slate/50 uppercase tracking-wider">Para
                             Estudantes</span>
@@ -109,7 +113,7 @@
 
                 <!-- Professor Free -->
                 <div
-                    class="bg-white rounded-3xl p-6 border border-brand-slate/10 shadow-lg flex flex-col justify-between">
+                    class="pricing-card bg-white rounded-3xl p-6 border border-brand-slate/10 shadow-lg flex flex-col justify-between">
                     <div>
                         <span class="text-xs font-bold text-brand-slate/50 uppercase tracking-wider">Para
                             Educadores</span>
@@ -140,7 +144,7 @@
 
                 <!-- Professor Pro (Destaque) -->
                 <div
-                    class="bg-brand-dark text-white rounded-3xl p-6 border-2 border-brand-gold shadow-xl flex flex-col justify-between relative">
+                    class="pricing-card pricing-card--featured bg-brand-dark text-white rounded-3xl p-6 border-2 border-brand-gold shadow-xl flex flex-col justify-between relative">
                     <div
                         class="absolute -top-3 right-6 bg-brand-gold text-brand-dark text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                         Mais Popular
@@ -172,14 +176,14 @@
                             </li>
                         </ul>
                     </div>
-                    <a href="#"
-                        class="mt-8 block text-center bg-brand-gold text-brand-dark py-3 rounded-xl font-bold text-sm hover:bg-white transition-all shadow-md">Assinar
-                        Pro</a>
+                    <a href="about.html#equipe"
+                        class="mt-8 block text-center bg-brand-gold text-brand-dark py-3 rounded-xl font-bold text-sm hover:bg-white transition-all shadow-md">Falar
+                        com a equipe</a>
                 </div>
 
                 <!-- Escola -->
                 <div
-                    class="bg-white rounded-3xl p-6 border border-brand-slate/10 shadow-lg flex flex-col justify-between">
+                    class="pricing-card bg-white rounded-3xl p-6 border border-brand-slate/10 shadow-lg flex flex-col justify-between">
                     <div>
                         <span
                             class="text-xs font-bold text-brand-slate/50 uppercase tracking-wider">Institucional</span>
@@ -207,7 +211,7 @@
                             </li>
                         </ul>
                     </div>
-                    <a href="#"
+                    <a href="about.html#equipe"
                         class="mt-8 block text-center bg-brand-dark text-white py-3 rounded-xl font-bold text-sm hover:bg-brand-slate transition-all">Fale
                         Conosco</a>
                 </div>
@@ -215,7 +219,7 @@
             </div>
 
             <!-- TABELA DETALHADA COMPLETA -->
-            <div class="bg-white rounded-3xl shadow-xl border border-brand-slate/10 overflow-hidden p-6 md:p-10">
+            <div id="comparativo" class="pricing-table bg-white rounded-3xl shadow-xl border border-brand-slate/10 overflow-hidden p-6 md:p-10">
                 <h3 class="text-2xl font-serif font-bold text-brand-dark mb-6">Comparativo Completo de Recursos</h3>
 
                 <div class="overflow-x-auto">
@@ -297,11 +301,11 @@
                                 <td class="py-3 px-4 font-medium text-brand-dark">Relatórios (Básicos / Avançados)</td>
                                 <td class="py-3 px-4 text-center">—</td>
                                 <td class="py-3 px-4 text-center">Apenas Básicos</td>
-                                <td class="py-3 px-4 text-center"><span class="inline-flex items-center gap-1"><i
-                                            data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Avançados</span>
+                                <td class="py-3 px-4 text-center"><span
+                                        class="inline-flex items-center gap-1">Avançados</span>
                                 </td>
-                                <td class="py-3 px-4 text-center"><span class="inline-flex items-center gap-1"><i
-                                            data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Avançados</span>
+                                <td class="py-3 px-4 text-center"><span
+                                        class="inline-flex items-center gap-1">Avançados</span>
                                 </td>
                             </tr>
                             <tr>
@@ -309,11 +313,11 @@
                                 <td class="py-3 px-4 text-center">—</td>
                                 <td class="py-3 px-4 text-center"><i data-lucide="x"
                                         class="w-4 h-4 text-brand-slate/50 inline-block"></i></td>
-                                <td class="py-3 px-4 text-center"><span class="inline-flex items-center gap-1"><i
-                                            data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Exportação</span>
+                                <td class="py-3 px-4 text-center"><span
+                                        class="inline-flex items-center gap-1">Exportação</span>
                                 </td>
-                                <td class="py-3 px-4 text-center"><span class="inline-flex items-center gap-1"><i
-                                            data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Completo</span>
+                                <td class="py-3 px-4 text-center"><span
+                                        class="inline-flex items-center gap-1">Completo</span>
                                 </td>
                             </tr>
                             <tr>
@@ -333,23 +337,21 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="min-h-[280px] bg-brand-dark text-brand-cream/60 py-16 md:py-20 flex items-center">
-        <div class="container mx-auto px-6 max-w-6xl grid md:grid-cols-2 gap-10 items-center text-sm">
-            <div class="text-center md:text-left">
-                <p>&copy; 2026 Lise. Todos os direitos reservados.</p>
-                <nav aria-label="Links do rodapé" class="mt-6 flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-3">
-                    <a href="index.html" class="hover:text-brand-gold transition">Início</a>
-                    <a href="about.html" class="hover:text-brand-gold transition">Sobre Nós</a>
-                </nav>
+    <footer class="subpage-footer bg-brand-cream border-t border-brand-slate/10 py-14 md:py-16">
+        <div class="container mx-auto px-6 max-w-6xl footer-grid">
+            <div>
+                <a href="index.html" class="footer-brand" aria-label="Lise, ir para o início">Lise<span>.</span></a>
+                <p class="footer-tagline">Biologia para entender, conectar e lembrar.</p>
+                <p class="text-brand-slate/60 text-sm">&copy; 2026 Lise. Um projeto do grupo Bit Bang Theory.</p>
             </div>
-            <div class="text-center md:text-right">
-                <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mb-3">Equipe Bit Bang Theory</p>
-                <ul class="space-y-2 text-brand-cream/80">
-                    <li>Lívia Domingues</li>
-                    <li>Isabelly Ferreira</li>
-                    <li>João Pedro Stadler</li>
-                    <li>John Cristopher</li>
-                </ul>
+            <div>
+                <p class="footer-label">Explore</p>
+                <nav aria-label="Links do rodapé" class="footer-links">
+                    <a href="index.html">Início</a>
+                    <a href="index.html#problema">O método</a>
+                    <a href="about.html">Sobre nós</a>
+                    <a href="index.html#metodo">Decodificador</a>
+                </nav>
             </div>
         </div>
     </footer>
@@ -357,6 +359,7 @@
     <script>
         lucide.createIcons();
     </script>
+    <script src="./assets/js/accessibility.js"></script>
 </body>
 
 </html>
