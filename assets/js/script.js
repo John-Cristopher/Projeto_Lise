@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initLiquidHoverButtons();
-    initMobileJourneyReveal();
 
     // 2. Inicialização do Objeto 3D da Marca (somente na seção "Jornada")
     initLiseMolecule('lise-3d-jornada');
@@ -97,43 +96,17 @@ function initLiquidHoverButtons() {
     });
 }
 
-function initMobileJourneyReveal() {
-    const blocks = Array.from(document.querySelectorAll('#jornada .jornada-bloco'));
-    if (blocks.length === 0) return;
-
-    const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (!isMobile || prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
-        blocks.forEach(block => block.classList.add('is-mobile-visible'));
-        return;
-    }
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add('is-mobile-visible');
-            observer.unobserve(entry.target);
-        });
-    }, {
-        threshold: 0.18,
-        rootMargin: '0px 0px -12% 0px'
-    });
-
-    blocks.forEach(block => observer.observe(block));
-}
-
 class LiquidHoverButton {
     constructor(button) {
         this.button = button;
         this.margin = 18;
         this.gap = 8;
-        this.tension = 0.3;
-        this.forceFactor = 0.05;
+        this.tension = 0.4;
+        this.forceFactor = 0.2;
         this.hoverFactor = -0.15;
-        this.color1 = button.dataset.color1 || '#0F5132';
-        this.color2 = button.dataset.color2 || '#2F9F68';
-        this.color3 = button.dataset.color3 || '#2F9F68';
+        this.color1 = button.dataset.color1 || '#4A5D4E';
+        this.color2 = button.dataset.color2 || '#5D7462';
+        this.color3 = button.dataset.color3 || '#8DAA91';
         this.layers = [
             { points: [], viscosity: 0.5, mouseForce: 100, forceLimit: 2 },
             { points: [], viscosity: 0.8, mouseForce: 150, forceLimit: 3 }
@@ -494,31 +467,19 @@ function initLiseMolecule(containerId = 'lise-3d') {
     const journeySteps = journeySection
         ? Array.from(journeySection.querySelectorAll('.jornada-bloco'))
         : [];
-    const journeyTerms = journeySection
-        ? Array.from(journeySection.querySelectorAll('[data-jornada-termo]'))
-        : [];
-    const journeySources = journeySection
-        ? Array.from(journeySection.querySelectorAll('[data-jornada-fonte]'))
-        : [];
-    const journeyRoutes = journeySection
-        ? Array.from(journeySection.querySelectorAll('.jornada-rota'))
-        : [];
-    const learningCore = journeySection
-        ? journeySection.querySelector('#jornada-nucleo')
-        : null;
 
     // Geometria em Icosaedro (Representação do Núcleo da Molécula)
     const geometry = new THREE.IcosahedronGeometry(1.7, 1);
     const edges = new THREE.EdgesGeometry(geometry);
     const lineMaterial = new THREE.LineBasicMaterial({
-        color: 0x2F9F68, // brand-sage
+        color: 0x8DAA91, // brand-sage
         transparent: true,
         opacity: 0.55
     });
     const wireframe = new THREE.LineSegments(edges, lineMaterial);
 
     const nodeMaterial = new THREE.PointsMaterial({
-        color: 0xF1873D, // brand-gold
+        color: 0xC5A467, // brand-gold
         size: 0.11,
         transparent: true,
         opacity: 0.9,
@@ -558,7 +519,47 @@ function initLiseMolecule(containerId = 'lise-3d') {
         };
     }
 
+    function updateJourneySteps() {
+        if (!journeySection || journeySteps.length === 0) return;
+
+        const stage = container.getBoundingClientRect();
+        const orbitLeft = stage.left + stage.width / 2 - Math.min(stage.width, stage.height) * 0.43;
+        const orbitCenterY = stage.top + stage.height / 2;
+        const orbitRadius = window.innerHeight * 0.62;
+
+        journeySteps.forEach(step => {
+            const rect = step.getBoundingClientRect();
+            const currentTranslateX = Number(step.dataset.orbitTranslateX || 0);
+            const stepCenterY = rect.top + rect.height / 2;
+            const progress = clamp(
+                0.5 - (stepCenterY - orbitCenterY) / (orbitRadius * 2),
+                0,
+                1
+            );
+            const arc = Math.sin(progress * Math.PI);
+            const stepCenterX = rect.left + rect.width / 2 - currentTranslateX;
+            const maxTranslateX = Math.max(
+                0,
+                orbitLeft - 20 - rect.width / 2 - stepCenterX
+            );
+            const translateX = maxTranslateX * arc;
+            const rotateX = (0.5 - progress) * 48;
+            const rotateY = (0.5 - progress) * 24;
+            const scale = 0.94 + arc * 0.06;
+
+            step.dataset.orbitTranslateX = String(translateX);
+            step.style.opacity = String(arc);
+            step.style.transform =
+                `translate3d(${translateX}px, 0, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+        });
+    }
+
     function render() {
+        updateJourneySteps();
+        if (orbitingText) {
+            const rotation = (currentRotY - 0.6) * (180 / Math.PI);
+            orbitingText.style.transform = `rotate(${rotation}deg)`;
+        }
         renderer.render(scene, camera);
     }
 
@@ -577,209 +578,6 @@ function initLiseMolecule(containerId = 'lise-3d') {
         }
     }
 
-    function showCompleteMolecule() {
-        molecule.scale.setScalar(1);
-        lineMaterial.opacity = 0.55;
-        nodeMaterial.opacity = 0.9;
-        if (orbitingText) orbitingText.style.opacity = '0.72';
-        if (learningCore) {
-            learningCore.style.opacity = '1';
-            learningCore.style.transform = 'translate(-50%, -50%) scale(1)';
-        }
-        journeySteps.forEach(step => {
-            step.style.opacity = '1';
-            step.style.transform = '';
-        });
-        journeySources.forEach(source => {
-            source.style.opacity = '1';
-            source.style.transform = '';
-            source.style.filter = '';
-        });
-        render();
-    }
-
-    function initJourneyStory() {
-        if (!journeySection || journeySteps.length !== 3 || prefersReducedMotion) {
-            showCompleteMolecule();
-            return false;
-        }
-
-        if (
-            typeof gsap === 'undefined'
-            || typeof ScrollTrigger === 'undefined'
-            || typeof MotionPathPlugin === 'undefined'
-        ) {
-            console.warn('GSAP não foi carregado; a esfera será exibida sem a narrativa de rolagem.');
-            showCompleteMolecule();
-            return false;
-        }
-
-        gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
-        molecule.scale.setScalar(0.3);
-        lineMaterial.opacity = 0.12;
-        nodeMaterial.opacity = 0.2;
-        gsap.set(journeySteps, {
-            autoAlpha: 0.18,
-            x: -110,
-            y: 34,
-            rotationY: -8,
-            transformOrigin: 'left center'
-        });
-        gsap.set(journeyTerms, { autoAlpha: 0, scale: 0.8 });
-        gsap.set(journeyRoutes, { autoAlpha: 0, strokeDashoffset: 36 });
-        if (learningCore) gsap.set(learningCore, { autoAlpha: 0, scale: 0.7 });
-
-        const stages = [
-            {
-                scale: 0.56,
-                edgeOpacity: 0.28,
-                nodeOpacity: 0.48,
-                rotation: { x: 0.68, y: 1.15 },
-                terms: [
-                    { name: 'radicais', path: '#rota-radicais' },
-                    { name: 'significado', path: '#rota-significado' }
-                ]
-            },
-            {
-                scale: 0.82,
-                edgeOpacity: 0.42,
-                nodeOpacity: 0.72,
-                rotation: { x: 0.32, y: 2.45 },
-                terms: [
-                    { name: 'prefixos', path: '#rota-prefixos' },
-                    { name: 'sufixos', path: '#rota-sufixos' }
-                ]
-            },
-            {
-                scale: 1,
-                edgeOpacity: 0.55,
-                nodeOpacity: 0.9,
-                rotation: { x: 0.5, y: 3.75 },
-                final: true,
-                terms: [
-                    { name: 'flashcards', path: '#rota-flashcards' },
-                    { name: 'quizzes', path: '#rota-quizzes' }
-                ]
-            }
-        ];
-
-        stages.forEach((stage, index) => {
-            const step = journeySteps[index];
-            const timeline = gsap.timeline({
-                scrollTrigger: {
-                    trigger: step,
-                    start: 'top 72%',
-                    end: 'center 48%',
-                    scrub: 0.7,
-                    invalidateOnRefresh: true,
-                    onToggle: self => step.classList.toggle('is-active', self.isActive)
-                },
-                onUpdate: render
-            });
-
-            timeline.to(molecule.scale, {
-                x: stage.scale,
-                y: stage.scale,
-                z: stage.scale,
-                duration: 1,
-                ease: 'none'
-            }, 0);
-            timeline.to(lineMaterial, { opacity: stage.edgeOpacity, duration: 1, ease: 'none' }, 0);
-            timeline.to(nodeMaterial, { opacity: stage.nodeOpacity, duration: 1, ease: 'none' }, 0);
-            timeline.to(molecule.rotation, {
-                x: stage.rotation.x,
-                y: stage.rotation.y,
-                duration: 1,
-                ease: 'none'
-            }, 0);
-            timeline.to(step, {
-                autoAlpha: 1,
-                x: 0,
-                y: 0,
-                rotationY: 0,
-                duration: 0.48,
-                ease: 'power1.out'
-            }, 0);
-            timeline.to(step, { x: 18, duration: 0.52, ease: 'none' }, 0.48);
-
-            if (stage.terms) {
-                stage.terms.forEach(({ name, path }, termIndex) => {
-                    const term = journeyTerms.find(item => item.dataset.jornadaTermo === name);
-                    const source = journeySources.find(item => item.dataset.jornadaFonte === name);
-                    const route = journeySection.querySelector(path);
-                    if (!term || !route) return;
-
-                    timeline.to(route, {
-                        autoAlpha: 0.62,
-                        strokeDashoffset: 0,
-                        duration: 0.26,
-                        ease: 'none'
-                    }, 0.16 + termIndex * 0.07);
-
-                    if (source) {
-                        timeline.to(source, {
-                            autoAlpha: 0.5,
-                            x: 10,
-                            filter: 'blur(0.35px)',
-                            duration: 0.34,
-                            ease: 'power1.in'
-                        }, 0.18 + termIndex * 0.07);
-                    }
-
-                    timeline.to(term, {
-                        autoAlpha: 1,
-                        scale: 1,
-                        duration: 0.14,
-                        ease: 'none'
-                    }, 0.2 + termIndex * 0.07);
-                    timeline.to(term, {
-                        motionPath: {
-                            path,
-                            autoRotate: false,
-                            alignOrigin: [0.5, 0.5]
-                        },
-                        duration: 0.62,
-                        ease: 'power1.inOut'
-                    }, 0.26 + termIndex * 0.07);
-                    timeline.to(term, {
-                        autoAlpha: 0,
-                        scale: 0.42,
-                        duration: 0.16,
-                        ease: 'power1.in'
-                    }, 0.84);
-                    timeline.to(route, {
-                        autoAlpha: 0,
-                        duration: 0.16,
-                        ease: 'none'
-                    }, 0.84);
-                });
-            }
-
-            if (stage.final) {
-                if (orbitingText) {
-                    timeline.to(orbitingText, {
-                        autoAlpha: 0.72,
-                        rotation: 28,
-                        duration: 0.62,
-                        ease: 'none'
-                    }, 0.38);
-                }
-
-                if (learningCore) {
-                    timeline.to(learningCore, {
-                        autoAlpha: 1,
-                        scale: 1,
-                        duration: 0.42,
-                        ease: 'back.out(1.5)'
-                    }, 0.58);
-                }
-            }
-        });
-
-        render();
-        return true;
-    }
-
     function requestTick() {
         if (!isTicking) {
             isTicking = true;
@@ -787,8 +585,9 @@ function initLiseMolecule(containerId = 'lise-3d') {
         }
     }
 
-    const hasJourneyStory = initJourneyStory();
-    if (!hasJourneyStory && !prefersReducedMotion) {
+    if (prefersReducedMotion) {
+        render();
+    } else {
         window.addEventListener('scroll', requestTick, { passive: true });
         requestTick();
     }
@@ -801,6 +600,6 @@ function initLiseMolecule(containerId = 'lise-3d') {
         camera.updateProjectionMatrix();
         renderer.setSize(width, height);
         render();
-        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+        updateJourneySteps();
     });
 }
