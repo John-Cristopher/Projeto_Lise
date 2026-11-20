@@ -466,8 +466,15 @@ html[data-theme="dark"] .hero-proof { color:rgba(248,238,245,.7); }
   font-size:clamp(3.1rem,6vw,5.5rem)!important;
   line-height:.98!important;
   letter-spacing:-.05em;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
 }
-.about-hero h1 .text-brand-gold { letter-spacing:-.025em; word-spacing:.06em; }
+.about-hero h1 .text-brand-gold {
+  letter-spacing:-.025em;
+  word-spacing:.06em;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+}
 .about-hero h1 + p { max-width:39rem; font-size:1.08rem; }
 .about-hero .md\:col-span-5 > div::before {
   content:"";
@@ -645,7 +652,7 @@ html[data-theme="dark"] .hero-proof { color:rgba(248,238,245,.7); }
   .subpage-nav { min-height:4.2rem; border-radius:1.15rem!important; padding:.7rem 1rem!important; }
   .subpage-nav > a:last-child { min-height:2.5rem; padding:.45rem .85rem; font-size:.8rem; }
   .about-hero > .container { min-height:auto; padding-top:8.5rem!important; padding-bottom:8rem!important; }
-  .about-hero h1 { font-size:clamp(2.9rem,13vw,4rem)!important; }
+  .about-hero h1 { font-size:clamp(2.65rem,11.5vw,3.45rem)!important; }
   .about-hero .grid { gap:4rem; }
   .about-story,.about-pillars,.about-process,.about-team { padding-block:6rem!important; }
   .about-pillars article,.about-process article,.about-team article { min-height:auto; }
