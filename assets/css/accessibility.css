@@ -57,7 +57,7 @@ html[data-theme="dark"] .text-brand-sage {
 }
 
 html[data-theme="dark"] .text-brand-gold {
-    color: #ffad72 !important;
+    color: #e3c680 !important;
 }
 
 html[data-theme="dark"] .bg-brand-gold.text-brand-dark,
@@ -95,18 +95,18 @@ html[data-theme="dark"] .liquid-hover-button.text-brand-dark {
 }
 
 .accessibility-controls button:focus-visible {
-    outline: 3px solid #f1873d;
+    outline: 3px solid #cda85a;
     outline-offset: 3px;
 }
 
 html[data-theme="dark"] .accessibility-controls button {
-    background: #f1873d;
+    background: #cda85a;
     border-color: #fff;
     color: #083a23;
 }
 
 html[data-theme="dark"] .accessibility-controls button:hover {
-    background: #ffad72;
+    background: #e3c680;
 }
 
 @media (max-width: 380px) {
